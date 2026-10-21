@@ -1,6 +1,6 @@
 {
  "meta": {
-  "collected_at": "2026-10-21T20:53+02:00",
+  "collected_at": "2026-10-21T21:11+02:00",
   "window": [
    "2026-09-01",
    "2027-07-31"
@@ -13,7 +13,7 @@
     "url": "https://events.bse.eu/all",
     "count": 176,
     "ok": true,
-    "last_ok": "2026-10-21T20:53+02:00",
+    "last_ok": "2026-10-21T21:11+02:00",
     "error": "",
     "extra": null
    },
@@ -33,7 +33,7 @@
     "url": "https://blog.iese.edu/financeseminars/seminars/",
     "count": 3,
     "ok": true,
-    "last_ok": "2026-10-21T20:53+02:00",
+    "last_ok": "2026-10-21T21:11+02:00",
     "error": "",
     "extra": "ACADEMIC YEAR 2026-2027"
    },
@@ -43,7 +43,7 @@
     "url": "https://www.esade.edu/faculty-research/en/group-research-economics-finance/events",
     "count": 0,
     "ok": true,
-    "last_ok": "2026-10-21T20:53+02:00",
+    "last_ok": "2026-10-21T21:11+02:00",
     "error": "",
     "extra": "2025-12-03"
    }
@@ -55,7 +55,7 @@
    "host": "Barcelona School of Economics",
    "series": "EALE Conference 2026",
    "kind": "conference",
-   "field": "Other",
+   "field": "Applied & policy",
    "internal": false,
    "canceled": false,
    "start": "2026-09-01T00:00:00+02:00",
@@ -104,7 +104,7 @@
    "host": "Barcelona School of Economics",
    "series": "EALE Conference 2026",
    "kind": "conference",
-   "field": "Other",
+   "field": "Applied & policy",
    "internal": false,
    "canceled": false,
    "start": "2026-09-02T00:00:00+02:00",
@@ -1637,7 +1637,7 @@
    "host": "UPF Dept. of Economics and Business",
    "series": "UPF Special Seminar",
    "kind": "seminar",
-   "field": "Other",
+   "field": "Micro & theory",
    "internal": false,
    "canceled": false,
    "start": "2026-10-09T16:00:00+02:00",
@@ -2752,7 +2752,7 @@
    "host": "Barcelona School of Economics",
    "series": "50th Barcelona School of Economics Lecture",
    "kind": "lecture",
-   "field": "Other",
+   "field": "Macro & international",
    "internal": false,
    "canceled": false,
    "start": "2026-10-23T17:00:00+02:00",
@@ -3024,7 +3024,7 @@
    "host": "UPF Dept. of Economics and Business",
    "series": "Departmental Seminar",
    "kind": "seminar",
-   "field": "Applied & policy",
+   "field": "Other",
    "internal": false,
    "canceled": false,
    "start": "2026-10-28T16:00:00+01:00",

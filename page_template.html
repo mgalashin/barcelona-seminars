@@ -15,7 +15,8 @@
 <style>
 /* Layout: Cerdà's Eixample. Each week is a stretch of city: the days are chamfered blocks (illes with
    xamfrans) and the gaps between them are the streets; a band of panot-de-flor tiles tops the page.
-   Institution tiles on top double as filters; a sticky bar holds the other filters. */
+   Field tiles on top are the main filter (colour = field, so one field reads across institutions);
+   a sticky bar holds the secondary filters, institution among them. */
 :root {
   --bg: #e6e3dc;            /* stone of the streets */
   --block: #f8f6f1;         /* block surface */
@@ -29,12 +30,14 @@
   --on-accent: #ffffff;
   --warn: #9a3412;
   --warn-soft: #f5e2d4;
-  --c-ub: #2d5c8c;
-  --c-upf: #b0363b;
-  --c-uab: #3a7a47;
-  --c-bse: #67509a;
-  --c-iese: #a2671a;
-  --c-esade: #8a3868;
+  --f-applied: #2e6aa0;     /* field colours */
+  --f-macro: #b2443a;
+  --f-micro: #3b7d49;
+  --f-finance: #a8690f;
+  --f-history: #6c58a8;
+  --f-metrics: #9b3b77;
+  --f-mgmt: #6f7d2c;
+  --f-other: #858a86;
   --panot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='116' height='116' viewBox='0 0 116 116'%3E%3Cdefs%3E%3Cmask id='m'%3E%3Crect width='116' height='116' fill='%23fff'/%3E%3Ccircle cx='39.85' cy='39.85' r='12.95' fill='%23000'/%3E%3Ccircle cx='76.15' cy='39.85' r='12.95' fill='%23000'/%3E%3Ccircle cx='39.85' cy='76.15' r='12.95' fill='%23000'/%3E%3Ccircle cx='76.15' cy='76.15' r='12.95' fill='%23000'/%3E%3Ccircle cx='58' cy='58' r='22.4' fill='%23fff'/%3E%3Ccircle cx='58' cy='58' r='13.9' fill='%23000'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url%28%23m%29'%3E%3Cg fill='%234a4337' opacity='0.16'%3E%3Ccircle cx='39.85' cy='39.85' r='20.85'/%3E%3Ccircle cx='76.15' cy='39.85' r='20.85'/%3E%3Ccircle cx='39.85' cy='76.15' r='20.85'/%3E%3Ccircle cx='76.15' cy='76.15' r='20.85'/%3E%3Ccircle cx='58' cy='58' r='22.4'/%3E%3C/g%3E%3Cg fill='%234a4337' opacity='0.09' transform='translate%28-1.6 -1.6%29'%3E%3Ccircle cx='39.85' cy='39.85' r='20.85'/%3E%3Ccircle cx='76.15' cy='39.85' r='20.85'/%3E%3Ccircle cx='39.85' cy='76.15' r='20.85'/%3E%3Ccircle cx='76.15' cy='76.15' r='20.85'/%3E%3Ccircle cx='58' cy='58' r='22.4'/%3E%3C/g%3E%3C/g%3E%3Cpath d='M115 0V116M0 115H116' stroke='%233a362f' stroke-opacity='0.28' stroke-width='2.4' fill='none'/%3E%3Cpath d='M1.6 0V113.8M0 1.6H113.8' stroke='%23ffffff' stroke-opacity='0.7' stroke-width='2' fill='none'/%3E%3C/svg%3E");
   --f-display: "Archivo", "Helvetica Neue", Arial, system-ui, sans-serif;
   --f-body: "Archivo", "Helvetica Neue", Arial, system-ui, sans-serif;
@@ -50,7 +53,8 @@
     --bg: #131615; --block: #1c201e; --ink: #e5e8e4; --ink-2: #a9b0ab; --ink-3: #7d857f;
     --rule: #2a2f2c; --rule-strong: #404743; --accent: #6dbea7; --accent-soft: #1b3832; --on-accent: #0a1d18;
     --warn: #f0a070; --warn-soft: #3a2418;
-    --c-ub: #86aee0; --c-upf: #ef8085; --c-uab: #78c489; --c-bse: #ad97e6; --c-iese: #e3aa5a; --c-esade: #d98bb9;
+    --f-applied: #86b0e6; --f-macro: #ef8a7f; --f-micro: #7cc68e; --f-finance: #e5ab55;
+    --f-history: #ab9ae9; --f-metrics: #dc8bbd; --f-mgmt: #b8c46a; --f-other: #a3a9a5;
     --panot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='116' height='116' viewBox='0 0 116 116'%3E%3Cdefs%3E%3Cmask id='m'%3E%3Crect width='116' height='116' fill='%23fff'/%3E%3Ccircle cx='39.85' cy='39.85' r='12.95' fill='%23000'/%3E%3Ccircle cx='76.15' cy='39.85' r='12.95' fill='%23000'/%3E%3Ccircle cx='39.85' cy='76.15' r='12.95' fill='%23000'/%3E%3Ccircle cx='76.15' cy='76.15' r='12.95' fill='%23000'/%3E%3Ccircle cx='58' cy='58' r='22.4' fill='%23fff'/%3E%3Ccircle cx='58' cy='58' r='13.9' fill='%23000'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url%28%23m%29'%3E%3Cg fill='%23000000' opacity='0.34'%3E%3Ccircle cx='39.85' cy='39.85' r='20.85'/%3E%3Ccircle cx='76.15' cy='39.85' r='20.85'/%3E%3Ccircle cx='39.85' cy='76.15' r='20.85'/%3E%3Ccircle cx='76.15' cy='76.15' r='20.85'/%3E%3Ccircle cx='58' cy='58' r='22.4'/%3E%3C/g%3E%3Cg fill='%23000000' opacity='0.16' transform='translate%28-1.6 -1.6%29'%3E%3Ccircle cx='39.85' cy='39.85' r='20.85'/%3E%3Ccircle cx='76.15' cy='39.85' r='20.85'/%3E%3Ccircle cx='39.85' cy='76.15' r='20.85'/%3E%3Ccircle cx='76.15' cy='76.15' r='20.85'/%3E%3Ccircle cx='58' cy='58' r='22.4'/%3E%3C/g%3E%3C/g%3E%3Cpath d='M115 0V116M0 115H116' stroke='%23000000' stroke-opacity='0.6' stroke-width='2.4' fill='none'/%3E%3Cpath d='M1.6 0V113.8M0 1.6H113.8' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='2' fill='none'/%3E%3C/svg%3E");
     color-scheme: dark;
   }
@@ -59,7 +63,8 @@
   --bg: #131615; --block: #1c201e; --ink: #e5e8e4; --ink-2: #a9b0ab; --ink-3: #7d857f;
   --rule: #2a2f2c; --rule-strong: #404743; --accent: #6dbea7; --accent-soft: #1b3832; --on-accent: #0a1d18;
   --warn: #f0a070; --warn-soft: #3a2418;
-  --c-ub: #86aee0; --c-upf: #ef8085; --c-uab: #78c489; --c-bse: #ad97e6; --c-iese: #e3aa5a; --c-esade: #d98bb9;
+  --f-applied: #86b0e6; --f-macro: #ef8a7f; --f-micro: #7cc68e; --f-finance: #e5ab55;
+  --f-history: #ab9ae9; --f-metrics: #dc8bbd; --f-mgmt: #b8c46a; --f-other: #a3a9a5;
   --panot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='116' height='116' viewBox='0 0 116 116'%3E%3Cdefs%3E%3Cmask id='m'%3E%3Crect width='116' height='116' fill='%23fff'/%3E%3Ccircle cx='39.85' cy='39.85' r='12.95' fill='%23000'/%3E%3Ccircle cx='76.15' cy='39.85' r='12.95' fill='%23000'/%3E%3Ccircle cx='39.85' cy='76.15' r='12.95' fill='%23000'/%3E%3Ccircle cx='76.15' cy='76.15' r='12.95' fill='%23000'/%3E%3Ccircle cx='58' cy='58' r='22.4' fill='%23fff'/%3E%3Ccircle cx='58' cy='58' r='13.9' fill='%23000'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url%28%23m%29'%3E%3Cg fill='%23000000' opacity='0.34'%3E%3Ccircle cx='39.85' cy='39.85' r='20.85'/%3E%3Ccircle cx='76.15' cy='39.85' r='20.85'/%3E%3Ccircle cx='39.85' cy='76.15' r='20.85'/%3E%3Ccircle cx='76.15' cy='76.15' r='20.85'/%3E%3Ccircle cx='58' cy='58' r='22.4'/%3E%3C/g%3E%3Cg fill='%23000000' opacity='0.16' transform='translate%28-1.6 -1.6%29'%3E%3Ccircle cx='39.85' cy='39.85' r='20.85'/%3E%3Ccircle cx='76.15' cy='39.85' r='20.85'/%3E%3Ccircle cx='39.85' cy='76.15' r='20.85'/%3E%3Ccircle cx='76.15' cy='76.15' r='20.85'/%3E%3Ccircle cx='58' cy='58' r='22.4'/%3E%3C/g%3E%3C/g%3E%3Cpath d='M115 0V116M0 115H116' stroke='%23000000' stroke-opacity='0.6' stroke-width='2.4' fill='none'/%3E%3Cpath d='M1.6 0V113.8M0 1.6H113.8' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='2' fill='none'/%3E%3C/svg%3E");
   color-scheme: dark;
 }
@@ -115,10 +120,10 @@ button, input { font: inherit; color: inherit; }
   .pavement-band { height: 56px; background-size: 56px 56px; }
 }
 
-/* Institution tiles: small blocks with a coloured façade; also the institution filter */
-.tiles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
-@media (max-width: 960px) { .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 460px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Field tiles: small blocks with a coloured façade; the main filter */
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 900px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .tile { padding: 14px 10px 10px; } .tile .host { display: none; } .tile .name { font-size: 15.5px; } }
 .tile {
   --x: 12px; --c: var(--ink-3);
   text-align: left; cursor: pointer; min-width: 0; border: 0;
@@ -129,13 +134,16 @@ button, input { font: inherit; color: inherit; }
 .tile[aria-pressed="false"] { opacity: .45; filter: grayscale(1); }
 .tile[aria-pressed="false"]:hover { opacity: .7; }
 .tile:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
-.tile .name { font-weight: 800; font-stretch: 125%; font-size: 18px; line-height: 1.1; letter-spacing: .01em; }
-.tile .host { font-size: 12px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile .name { font-weight: 800; font-stretch: 112%; font-size: 17px; line-height: 1.15; letter-spacing: .01em; text-wrap: balance; }
+.tile .host { font-size: 12px; color: var(--ink-3); line-height: 1.35; }
 .tile .nums { margin-top: var(--s-2); display: flex; align-items: baseline; gap: var(--s-2); flex-wrap: wrap; }
 .tile .big { font: 500 24px/1 var(--f-mono); font-variant-numeric: tabular-nums; }
 .tile .small { font-size: 12px; color: var(--ink-3); }
-.tile .gap { font-size: 12px; color: var(--warn); margin-top: var(--s-1); line-height: 1.35; }
+.tile .mix { font-size: 12px; color: var(--ink-2); margin-top: 2px; line-height: 1.35; font-variant-numeric: tabular-nums; }
+.tile .mix b { font-weight: 700; color: var(--ink); }
 .tiles-note { font-size: 12.5px; color: var(--ink-3); margin: var(--s-2) 0 0; }
+.coverage { font-size: 12.5px; color: var(--ink-2); margin: var(--s-1) 0 0; max-width: 90ch; }
+.coverage .warn { color: var(--warn); }
 
 /* Sticky filter bar */
 .bar {
@@ -218,13 +226,14 @@ main { padding-block: var(--s-5) var(--s-7); }
 .ev-top { display: flex; align-items: center; gap: var(--s-2); font-size: 12.5px; }
 .ev .time { font: 500 14px/1.3 var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
 .ev .time small { color: var(--ink-3); font-size: 11px; }
-.inst { --c: var(--ink-3); display: inline-flex; align-items: center; gap: 5px; font-weight: 700; color: var(--ink); letter-spacing: .02em; }
-.inst::before { content: ""; width: 10px; height: 10px; background: var(--c); flex: none;
+.fld { --c: var(--f-other); display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
+.fld::before { content: ""; width: 10px; height: 10px; background: var(--c); flex: none;
   clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%); }
+.inst { font-weight: 700; color: var(--ink); letter-spacing: .02em; }
 .ev .go { margin-left: auto; color: var(--accent); text-decoration: none; font-size: 15px; font-weight: 700; line-height: 1; padding: 4px 2px 4px 8px; }
 .ev .go:hover { color: var(--ink); }
 .ev .series { font-size: 12.5px; color: var(--ink-2); font-weight: 500; line-height: 1.35; }
-.ev .series .field { color: var(--ink-3); font-weight: 400; }
 .tags { display: flex; gap: 4px; flex-wrap: wrap; }
 .tag { font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 0 5px; box-shadow: inset 0 0 0 1px var(--rule-strong); color: var(--ink-2); }
 .tag.warn { box-shadow: none; background: var(--warn-soft); color: var(--warn); }
@@ -271,14 +280,15 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   <div>
     <p class="eyebrow">Seminaris d'economia · UB · UPF · UAB · IESE · Esade</p>
     <h1>Barcelona Econ Seminars</h1>
-    <p id="lede">Every published economics seminar in the city, in one agenda, refreshed every morning. UPF and UAB come through the Barcelona School of Economics calendar, which also carries CREI and IAE-CSIC.</p>
+    <p id="lede">Every published economics seminar in the city, sorted by field rather than by campus, so you can find the talk in your area wherever it is. Refreshed every morning from the UB, BSE (UPF, UAB, CREI, IAE-CSIC), IESE and Esade calendars.</p>
   </div>
   <div class="stamp" id="stamp"></div>
 </header>
 
-<section class="wrap" aria-label="Institutions">
+<section class="wrap" aria-label="Fields">
   <div class="tiles" id="tiles"></div>
-  <p class="tiles-note">Tap an institution to show only it; tap others to add them back. Counts cover the whole academic year.</p>
+  <p class="tiles-note">Tap a field to show only it; tap others to add them back. Each tile lists where its upcoming talks are.</p>
+  <p class="coverage" id="coverage"></p>
 </section>
 
 <div class="bar">
@@ -294,7 +304,7 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
         <input id="q" type="search" placeholder="Search speaker, title, series, affiliation" autocomplete="off">
       </label>
     </div>
-    <div class="row"><span class="label">Field</span><div class="chips" id="fields"></div></div>
+    <div class="row"><span class="label">Where</span><div class="chips" id="insts"></div></div>
     <div class="row"><span class="label">Type</span><div class="chips" id="kinds"></div>
       <label class="switch" for="internal"><input type="checkbox" id="internal"> Internal &amp; PhD sessions</label>
       <button type="button" class="reset" id="reset" hidden>Reset filters</button>
@@ -324,16 +334,27 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   const TZ = "Europe/Madrid";
 
   const INSTS = [
-    { key: "UB", name: "UB", host: "School of Economics", c: "--c-ub" },
-    { key: "UPF", name: "UPF", host: "Economics · CREI", c: "--c-upf" },
-    { key: "UAB", name: "UAB", host: "UFAE · IAE-CSIC", c: "--c-uab" },
-    { key: "BSE", name: "BSE", host: "School-wide events", c: "--c-bse" },
-    { key: "IESE", name: "IESE", host: "Economics & Finance", c: "--c-iese" },
-    { key: "Esade", name: "Esade", host: "GREF seminars", c: "--c-esade" },
+    { key: "UB", name: "UB", host: "UB School of Economics" },
+    { key: "UPF", name: "UPF", host: "UPF Economics and CREI" },
+    { key: "UAB", name: "UAB", host: "UAB economics (UFAE) and IAE-CSIC" },
+    { key: "BSE", name: "BSE", host: "Barcelona School of Economics, school-wide events" },
+    { key: "IESE", name: "IESE", host: "IESE economics and finance seminars" },
+    { key: "Esade", name: "Esade", host: "Esade GREF seminars" },
   ];
-  const INST_C = Object.fromEntries(INSTS.map(i => [i.key, i.c]));
-  const FIELDS = ["Applied & policy", "Macro & international", "Micro & theory", "Finance", "Economic history",
-                  "Econometrics & statistics", "Management", "Other"];
+  const INST_KEYS = INSTS.map(i => i.key);
+  // the main filter; colour follows the field so one field reads across institutions
+  const FIELDS = [
+    { key: "Applied & policy", short: "Applied", c: "--f-applied", desc: "Labour, public, urban, development, political economy" },
+    { key: "Macro & international", short: "Macro", c: "--f-macro", desc: "Macro, monetary, trade, growth" },
+    { key: "Micro & theory", short: "Micro", c: "--f-micro", desc: "Theory, games, IO, behavioural" },
+    { key: "Finance", short: "Finance", c: "--f-finance", desc: "Corporate finance, banking, asset pricing" },
+    { key: "Economic history", short: "History", c: "--f-history", desc: "Economic and long-run history" },
+    { key: "Econometrics & statistics", short: "Metrics", c: "--f-metrics", desc: "Econometrics and statistics" },
+    { key: "Management", short: "Management", c: "--f-mgmt", desc: "Management and strategy" },
+    { key: "Other", short: "Other", c: "--f-other", desc: "Lectures and events without one field" },
+  ];
+  const FIELD_KEYS = FIELDS.map(f => f.key);
+  const FIELD_OF = Object.fromEntries(FIELDS.map(f => [f.key, f]));
   const KINDS = [
     { key: "seminar", name: "Seminars" }, { key: "lecture", name: "Lectures" },
     { key: "workshop", name: "Workshops" }, { key: "conference", name: "Conferences" },
@@ -369,8 +390,8 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   const longDate = s => { const d = utc(s); return d.getUTCDate() + " " + MONTH[d.getUTCMonth()] + " " + d.getUTCFullYear(); };
 
   // ---- state
-  const KEY = "bcn-seminars-v1";
-  const fresh = () => ({ view: "upcoming", q: "", insts: INSTS.map(i => i.key), fields: FIELDS.slice(),
+  const KEY = "bcn-seminars-v2";  // v2: fields became the main filter
+  const fresh = () => ({ view: "upcoming", q: "", insts: INST_KEYS.slice(), fields: FIELD_KEYS.slice(),
                          kinds: DEFAULT_KINDS.slice(), internal: false });
   let S = fresh();
   try {
@@ -414,36 +435,37 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
 
   const esadeSrc = src("Esade");
   const ieseN = EVENTS.filter(e => e.inst === "IESE").length;
-  const GAPS = {
-    Esade: esadeSrc.extra ? `Nothing posted since ${dm(esadeSrc.extra)} ${esadeSrc.extra.slice(0, 4)}` : "No seminars posted",
-    IESE: `Only ${ieseN} date${ieseN === 1 ? "" : "s"} published, no titles`,
-  };
-  // institutions whose source failed today: say which day's data they show
-  const INST_SRC = { UB: "UB", UPF: "BSE", UAB: "BSE", BSE: "BSE", IESE: "IESE", Esade: "Esade" };
-  const staleNote = k => {
-    const s = META.sources.find(x => x.key === INST_SRC[k]);
-    if (!s || s.ok) return "";
-    return s.last_ok ? `Source down today; showing data from ${dm(localDay(new Date(s.last_ok)))}` : "Source down today";
-  };
+
+  // gaps in coverage, said once under the tiles: a source down today, IESE's short list, Esade's silence
+  function renderCoverage() {
+    const who = { BSE: "The BSE calendar (UPF, UAB, CREI, IAE-CSIC)", UB: "UB's calendar", IESE: "IESE's seminar page", Esade: "Esade's seminar page" };
+    const parts = META.sources.filter(s => !s.ok).map(s =>
+      `<span class="warn">${esc(who[s.key] || s.name)} couldn't be reached today, so its events are from ${s.last_ok ? esc(dm(localDay(new Date(s.last_ok)))) : "an earlier day"}.</span>`);
+    if (ieseN <= 5) parts.push(`IESE lists only ${ieseN} date${ieseN === 1 ? "" : "s"}, without titles.`);
+    if (!EVENTS.some(e => e.inst === "Esade"))
+      parts.push(`Esade has posted no seminars since ${esadeSrc.extra ? esc(longDate(esadeSrc.extra)) : "last year"}.`);
+    $("coverage").innerHTML = parts.join(" ");
+  }
 
   function renderTiles() {
-    const yearCount = k => EVENTS.filter(e => e.inst === k && (S.internal || !e.internal)).length;
-    const upCount = k => EVENTS.filter(e => e.inst === k && e._endDay >= TODAY && (S.internal || !e.internal)).length;
-    $("tiles").innerHTML = INSTS.map(i => {
-      const y = yearCount(i.key), u = upCount(i.key);
-      const stale = staleNote(i.key);
-      const gap = stale ? `<span class="gap">${esc(stale)}</span>`
-        : (GAPS[i.key] && (i.key === "Esade" ? y === 0 : y <= 5)) ? `<span class="gap">${esc(GAPS[i.key])}</span>` : "";
-      return `<button type="button" class="tile xamfra" data-inst="${i.key}" style="--c: var(${i.c})" aria-pressed="${S.insts.includes(i.key)}">
-        <span class="name">${i.name}</span><span class="host">${esc(i.host)}</span>
-        <span class="nums"><span class="big">${u}</span><span class="small">upcoming · ${y} this year</span></span>${gap}</button>`;
+    const vis = e => (S.internal || !e.internal) && S.kinds.includes(e.kind);
+    $("tiles").innerHTML = FIELDS.map(f => {
+      const inField = EVENTS.filter(e => e.field === f.key && vis(e));
+      const up = inField.filter(e => e._endDay >= TODAY);
+      const where = INSTS.map(i => [i.key, up.filter(e => e.inst === i.key).length])
+        .filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
+      const mix = where.length ? where.map(([k, n]) => `<b>${k}</b> ${n}`).join(" · ") : "Nothing scheduled yet";
+      return `<button type="button" class="tile xamfra" data-field="${esc(f.key)}" style="--c: var(${f.c})" aria-pressed="${S.fields.includes(f.key)}">
+        <span class="name">${esc(f.key)}</span><span class="host">${esc(f.desc)}</span>
+        <span class="nums"><span class="big">${up.length}</span><span class="small">upcoming · ${inField.length} this year</span></span>
+        <span class="mix">${mix}</span></button>`;
     }).join("");
   }
 
   function renderChips() {
-    const count = (dim, val) => EVENTS.filter(e => pass(e, dim) && (dim === "field" ? e.field === val : e.kind === val)).length;
-    $("fields").innerHTML = FIELDS.map(f =>
-      `<button type="button" class="chip" data-field="${esc(f)}" aria-pressed="${S.fields.includes(f)}">${esc(f)}<span class="n">${count("field", f)}</span></button>`).join("");
+    const count = (dim, val) => EVENTS.filter(e => pass(e, dim) && e[dim] === val).length;
+    $("insts").innerHTML = INSTS.map(i =>
+      `<button type="button" class="chip" data-inst="${i.key}" title="${esc(i.host)}" aria-pressed="${S.insts.includes(i.key)}">${i.name}<span class="n">${count("inst", i.key)}</span></button>`).join("");
     $("kinds").innerHTML = KINDS.map(k =>
       `<button type="button" class="chip" data-kind="${k.key}" aria-pressed="${S.kinds.includes(k.key)}">${k.name}<span class="n">${count("kind", k.key)}</span></button>`).join("");
     $("internal").checked = S.internal;
@@ -490,10 +512,11 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
     const time = e.all_day ? `<span class="time">All day</span>`
       : `<span class="time">${e._time}${e._endTime && e._endDay === e._day ? `<small>–${e._endTime}</small>` : ""}</span>`;
     const host = e.host && e.host !== e.series ? ` title="${esc(e.host)}"` : "";
+    const f = FIELD_OF[e.field] || FIELD_OF.Other;
     return `<article class="ev${e.canceled ? " canceled" : ""}">
-      <div class="ev-top">${time}<span class="inst" style="--c: var(${INST_C[e.inst]})"${host}>${esc(e.inst)}</span>
+      <div class="ev-top">${time}<span class="fld" style="--c: var(${f.c})" title="${esc(f.key)}">${esc(f.short)}</span>
         <a class="go" href="${esc(e.url)}" target="_blank" rel="noopener" title="Open the event page" aria-label="Event page">↗</a></div>
-      <div class="series">${hl(e.series)} <span class="field">· ${esc(e.field)}</span></div>
+      <div class="series"><span class="inst"${host}>${esc(e.inst)}</span> · ${hl(e.series)}</div>
       ${tags.length ? `<div class="tags">${tags.join("")}</div>` : ""}
       ${body}
       ${meta.length ? `<div class="meta">${meta.map(m => `<span>${m}</span>`).join("")}</div>` : ""}
@@ -581,7 +604,7 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
       for (const e of evs) {
         const talk = e.talks.filter(t => t.speaker || t.title).map(t =>
           `${t.speaker || "TBA"}${t.affil ? " (" + t.affil + ")" : ""}${t.title && !/^(tba|tbc|tbd)$/i.test(t.title) ? ", “" + t.title + "”" : ""}`).join("; ");
-        lines.push(`  ${e.all_day ? "all day" : e._time}  ${e.inst} · ${e.series}${e.canceled ? " [CANCELLED]" : ""}${talk ? " · " + talk : ""}${e.location ? " · " + e.location : ""}`);
+        lines.push(`  ${e.all_day ? "all day" : e._time}  ${(FIELD_OF[e.field] || FIELD_OF.Other).short} · ${e.inst} · ${e.series}${e.canceled ? " [CANCELLED]" : ""}${talk ? " · " + talk : ""}${e.location ? " · " + e.location : ""}`);
       }
     }
     return lines.join("\n");
@@ -603,8 +626,8 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   document.addEventListener("click", ev => {
     const b = ev.target.closest("button");
     if (!b) return;
-    if (b.dataset.inst) { S.insts = toggle(S.insts, INSTS.map(i => i.key), b.dataset.inst); }
-    else if (b.dataset.field) { S.fields = toggle(S.fields, FIELDS, b.dataset.field); }
+    if (b.dataset.inst) { S.insts = toggle(S.insts, INST_KEYS, b.dataset.inst); }
+    else if (b.dataset.field) { S.fields = toggle(S.fields, FIELD_KEYS, b.dataset.field); }
     else if (b.dataset.kind) { S.kinds = S.kinds.includes(b.dataset.kind) ? S.kinds.filter(k => k !== b.dataset.kind) : S.kinds.concat(b.dataset.kind); if (!S.kinds.length) S.kinds = DEFAULT_KINDS.slice(); }
     else if (b.dataset.view) { S.view = b.dataset.view; }
     else if (b.id === "reset" || "reset" in b.dataset) { S = fresh(); $("q").value = ""; }
@@ -623,6 +646,7 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   $("q").addEventListener("input", e => { clearTimeout(qT); qT = setTimeout(() => { S.q = e.target.value.trim(); renderChips(); renderList(); }, 120); });
 
   renderSources();
+  renderCoverage();
   renderAll();
 })();
 </script>

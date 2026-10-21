@@ -89,14 +89,15 @@ def local_iso(y, mo, d, hh=None, mm=None):
 
 
 FIELDS = [
-    ("Finance", r"financ"),
+    ("Finance", r"\bfinance\b|asset pric|banking|corporate fin"),
     ("Management", r"management"),
     ("Econometrics & statistics", r"statist|econometr"),
     ("Economic history", r"histor"),
     ("Macro & international", r"macro|international|growth|monetary|steg"),
-    ("Micro & theory", r"micro|theory|game|behavio|experiment|beat"),
-    ("Applied & policy", r"applied|labou?r|public|\bieb\b|iperg|aqr|irea|development|politic|health|"
-                         r"urban|regional|iae|departmental|welfare|energy|environment|gov"),
+    ("Micro & theory", r"micro|theory|game|behavio|experiment|beat|industrial organi|axiomatic|auction|"
+                       r"mechanism design|matching"),
+    ("Applied & policy", r"applied|labou?r|\beale\b|public|\bieb\b|iperg|aqr|irea|development|politic|health|"
+                         r"urban|regional|iae|welfare|energy|environment|gov"),
 ]
 
 
@@ -229,6 +230,8 @@ def collect_bse(start, end):
         field = field_of(series)
         if field == "Other":
             field = field_of(" ".join(e.get("tags") or []))
+        if field == "Other" and len(talks) == 1:  # a one-off lecture: go by its title
+            field = field_of(talks[0]["title"])
         out.append({
             "inst": inst, "host": host, "series": series, "kind": kind,
             "field": field,
