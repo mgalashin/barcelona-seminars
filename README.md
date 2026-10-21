@@ -20,9 +20,9 @@ One agenda of the economics seminars at UB, UPF, UAB, IESE and Esade, rebuilt ev
 1. runs `collect.py`, which fetches all four sources and writes `data/seminars.json` and the site in `docs/`;
 2. commits the new data back to the repo;
 3. publishes `docs/` to GitHub Pages;
-4. fails, which makes GitHub email you, if any source could not be reached.
+4. fails if any source could not be reached, so GitHub emails you.
 
-If a source is down, or suddenly returns no events when it had some the day before (usually a site redesign that broke the parser), the page keeps that source's events from the last good run and marks them as stale. The other sources still update.
+If a source is down, or suddenly returns no events when it had some the day before (usually a site redesign that broke the parser), the page keeps that source's events from the last good run and flags the source as unreachable. The other sources still update.
 
 To refresh by hand, open the **Actions** tab, choose **Refresh seminars**, and click **Run workflow**. Or run:
 

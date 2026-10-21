@@ -131,7 +131,7 @@ def kind_of(*texts):
 BSE_GROUPS = {
     "UPF-DEE Events Calendar": ("UPF", "UPF Dept. of Economics and Business"),
     "CREI Events Calendar": ("UPF", "CREI"),
-    "UFAE Events Calendar": ("UAB", "UAB Dept. of Economics (UFAE)"),
+    "UFAE Events Calendar": ("UAB", "UAB Department of Economics"),
     "IAE Events Calendar": ("UAB", "IAE-CSIC"),
     "Barcelona School of Economics Events Calendar": ("BSE", "Barcelona School of Economics"),
 }
@@ -177,7 +177,7 @@ def parse_talks(lines):
         if nc and not pending and "“" not in ln:  # 'Name: Title' without quotes
             add(nc.group(1), nc.group(2).strip().rstrip("."))
             continue
-        q = re.search(r"[“\"](.+?)[”\"]", ln) or re.match(r"^[“\"](.+)$", ln)  # also unclosed quotes
+        q = re.search(r"[“”\"](.+?)[“”\"]", ln) or re.match(r"^[“”\"](.+)$", ln)  # also unclosed or reversed quotes
         if q:
             before = ln[:q.start()].strip().rstrip(":").strip()
             after = ln[q.end():].strip().lstrip(",.").strip()
@@ -238,7 +238,8 @@ def collect_bse(start, end):
             "internal": internal, "canceled": canceled,
             "start": e["date_iso"], "end": e.get("date2_iso"),
             "all_day": bool(e.get("is_all_day")) or e["date_iso"].endswith("T00:00:00" + e["date_iso"][-6:]),
-            "talks": talks, "location": (e.get("location") or e.get("location_title") or "").strip(),
+            "talks": talks,
+            "location": re.sub(r",(?=[^\s\d])", ", ", re.sub(r"\s+", " ", e.get("location") or e.get("location_title") or "")).strip(),
             # BSE's is_online flags a Zoom link; with a room listed it is a hybrid session
             "notes": notes, "mode": ("Hybrid" if e.get("location") else "Online") if e.get("is_online") else "",
             "url": e["url"], "source": "BSE events calendar",
@@ -372,8 +373,7 @@ def collect_iese(start, end):
                     "canceled": "cancel" in ln.lower(),
                     "start": iso, "end": None, "all_day": "T" not in iso,
                     "talks": [{"speaker": name.strip(), "affil": affil.strip(), "title": "", "note": ""}],
-                    "location": f"IESE Barcelona campus, room {room}" if room and room.lower() != "tbd"
-                    else "IESE Barcelona campus (room tbd)",
+                    "location": f"Room {room}" if room and room.lower() != "tbd" else "",
                     "notes": [], "mode": "", "url": IESE_URL, "source": "IESE Research Seminars",
                 })
             pending = None
@@ -408,7 +408,7 @@ def collect_esade(start, end):
         title = " ".join(text_lines(c.group("title")))
         authors = " ".join(text_lines(c.group("authors") or ""))
         out.append({
-            "inst": "Esade", "host": "Esade GREF", "series": "Esade GREF Research Seminar", "kind": "seminar",
+            "inst": "Esade", "host": "Esade economics and finance group", "series": "Esade Economics and Finance Seminar", "kind": "seminar",
             "field": field_of(title) if field_of(title) != "Other" else "Finance",
             "internal": False, "canceled": False, "start": iso, "end": None, "all_day": "T" not in iso,
             "talks": [{"speaker": authors, "affil": "", "title": title, "note": ""}],
@@ -422,12 +422,12 @@ def collect_esade(start, end):
 
 SOURCES = [
     # key, display name, url, collector, the "source" label carried by each event
-    ("BSE", "BSE events calendar (UPF, UAB, CREI, IAE-CSIC)", "https://events.bse.eu/all", collect_bse,
+    ("BSE", "BSE events calendar", "https://events.bse.eu/all", collect_bse,
      "BSE events calendar"),
     ("UB", "UB School of Economics activities", "https://www.ub.edu/school-economics/activities/", collect_ub,
      "UB School of Economics activities"),
     ("IESE", "IESE Research Seminars", IESE_URL, collect_iese, "IESE Research Seminars"),
-    ("Esade", "Esade GREF events", ESADE_URL, collect_esade, "Esade GREF events"),
+    ("Esade", "Esade economics and finance events", ESADE_URL, collect_esade, "Esade GREF events"),
 ]
 
 
@@ -485,7 +485,7 @@ def main():
                   file=sys.stderr)
 
     campus = {"UPF": "Ciutadella campus", "UAB": "Bellaterra campus", "UB": "Diagonal campus",
-              "IESE": "Pedralbes", "Esade": "Pedralbes"}
+              "IESE": "Pedralbes campus", "Esade": "Pedralbes campus"}
     events.sort(key=lambda e: (e["start"], e["inst"], e["series"]))
     for i, e in enumerate(events):
         e["id"] = i

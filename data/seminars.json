@@ -1,6 +1,6 @@
 {
  "meta": {
-  "collected_at": "2026-10-21T21:26+02:00",
+  "collected_at": "2026-10-21T22:34+02:00",
   "window": [
    "2026-09-01",
    "2027-07-31"
@@ -9,11 +9,11 @@
   "sources": [
    {
     "key": "BSE",
-    "name": "BSE events calendar (UPF, UAB, CREI, IAE-CSIC)",
+    "name": "BSE events calendar",
     "url": "https://events.bse.eu/all",
     "count": 176,
     "ok": true,
-    "last_ok": "2026-10-21T21:26+02:00",
+    "last_ok": "2026-10-21T22:34+02:00",
     "error": "",
     "extra": null
    },
@@ -33,17 +33,17 @@
     "url": "https://blog.iese.edu/financeseminars/seminars/",
     "count": 3,
     "ok": true,
-    "last_ok": "2026-10-21T21:26+02:00",
+    "last_ok": "2026-10-21T22:34+02:00",
     "error": "",
     "extra": "ACADEMIC YEAR 2026-2027"
    },
    {
     "key": "Esade",
-    "name": "Esade GREF events",
+    "name": "Esade economics and finance events",
     "url": "https://www.esade.edu/faculty-research/en/group-research-economics-finance/events",
     "count": 0,
     "ok": true,
-    "last_ok": "2026-10-21T21:26+02:00",
+    "last_ok": "2026-10-21T22:34+02:00",
     "error": "",
     "extra": "2025-12-03"
    }
@@ -150,7 +150,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -204,7 +204,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "MicroLab",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -285,7 +285,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "IDEA Inaugural Lecture",
    "kind": "lecture",
    "field": "Other",
@@ -588,7 +588,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -686,13 +686,13 @@
      "note": ""
     }
    ],
-   "location": "IESE Barcelona campus, room Q402",
+   "location": "Room Q402",
    "notes": [],
    "mode": "",
    "url": "https://blog.iese.edu/financeseminars/seminars/",
    "source": "IESE Research Seminars",
    "id": 23,
-   "campus": "Pedralbes"
+   "campus": "Pedralbes campus"
   },
   {
    "inst": "UB",
@@ -1000,7 +1000,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Working Group",
    "kind": "workshop",
    "field": "Applied & policy",
@@ -1054,7 +1054,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -1193,7 +1193,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Micro Seminar",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -1314,7 +1314,7 @@
     {
      "speaker": "Valeria Gargiulo",
      "affil": "UPF and BSE",
-     "title": "Mean and Variance Regimes in Threshold VARs: Revisiting Regime-dependent Fiscal Multipliers “",
+     "title": "Mean and Variance Regimes in Threshold VARs: Revisiting Regime-dependent Fiscal Multipliers",
      "note": ""
     }
    ],
@@ -1517,7 +1517,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "MicroLab",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -1580,7 +1580,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Working Group",
    "kind": "workshop",
    "field": "Applied & policy",
@@ -1761,7 +1761,7 @@
      "note": ""
     }
    ],
-   "location": "24.104  (Mercè Rodoreda Building)",
+   "location": "24.104 (Mercè Rodoreda Building)",
    "notes": [],
    "mode": "",
    "url": "https://events.bse.eu/event/15787-upf-applied-economics-seminar",
@@ -1771,7 +1771,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "MicroLab",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -1982,7 +1982,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Microeconomics Seminar",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -2150,7 +2150,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Economics Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -2287,7 +2287,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Microeconomics Seminar",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -2555,7 +2555,7 @@
      "note": ""
     }
    ],
-   "location": "24.019  (Mercè Rodoreda Building)",
+   "location": "24.019 (Mercè Rodoreda Building)",
    "notes": [
     "Note different time"
    ],
@@ -2594,7 +2594,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Economics Working Group",
    "kind": "workshop",
    "field": "Applied & policy",
@@ -2621,7 +2621,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "MicroLab",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -2715,7 +2715,7 @@
    "end": "2026-10-23T13:00:00+02:00",
    "all_day": false,
    "talks": [],
-   "location": "Institut d’Estudis Catalans,C/ del Carme 47 Barcelona",
+   "location": "Institut d’Estudis Catalans, C/ del Carme 47 Barcelona",
    "notes": [
     "Register here"
    ],
@@ -2737,7 +2737,7 @@
    "end": "2026-10-23T16:30:00+02:00",
    "all_day": false,
    "talks": [],
-   "location": "Institut d’Estudis Catalans,C/ del Carme 47 Barcelona",
+   "location": "Institut d’Estudis Catalans, C/ del Carme 47 Barcelona",
    "notes": [
     "Register for the Trobada here"
    ],
@@ -2766,7 +2766,7 @@
      "note": ""
     }
    ],
-   "location": "Institut d’Estudis Catalans,C/ del Carme 47 Barcelona",
+   "location": "Institut d’Estudis Catalans, C/ del Carme 47 Barcelona",
    "notes": [
     "Register here"
    ],
@@ -2778,7 +2778,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Economics Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -2859,7 +2859,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Microeconomics Seminar",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -3075,7 +3075,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Working Group",
    "kind": "workshop",
    "field": "Applied & policy",
@@ -3239,7 +3239,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Micro Seminar",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -3738,7 +3738,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "MicroLab",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -3798,7 +3798,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Working Group",
    "kind": "workshop",
    "field": "Applied & policy",
@@ -3962,7 +3962,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Micro Seminar",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -4157,7 +4157,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "MicroLab",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -4506,8 +4506,8 @@
     {
      "speaker": "Martin Aragoneses",
      "affil": "INSEAD",
-     "title": "” Venture Capital and Customer Capital ” (with Young Soo Jang and Amir Sufi)",
-     "note": ""
+     "title": "Venture Capital and Customer Capital",
+     "note": "(with Young Soo Jang and Amir Sufi)"
     }
    ],
    "location": "24.019 (Mercè Rodoreda Building)",
@@ -4547,7 +4547,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Micro Seminar",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -4801,7 +4801,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Microeconomics Seminar",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -5080,7 +5080,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Economics Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -5151,17 +5151,17 @@
      "note": ""
     }
    ],
-   "location": "IESE Barcelona campus (room tbd)",
+   "location": "",
    "notes": [],
    "mode": "",
    "url": "https://blog.iese.edu/financeseminars/seminars/",
    "source": "IESE Research Seminars",
    "id": 185,
-   "campus": "Pedralbes"
+   "campus": "Pedralbes campus"
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Economics Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -5215,7 +5215,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "MicroLab",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -5296,7 +5296,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "MicroLab",
    "kind": "seminar",
    "field": "Micro & theory",
@@ -5346,7 +5346,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Economics Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -5427,7 +5427,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Economics Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -5618,7 +5618,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Economics Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -5699,7 +5699,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Economics Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -5890,7 +5890,7 @@
   },
   {
    "inst": "UAB",
-   "host": "UAB Dept. of Economics (UFAE)",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Applied Economics Seminar",
    "kind": "seminar",
    "field": "Applied & policy",
@@ -6069,13 +6069,13 @@
      "note": ""
     }
    ],
-   "location": "IESE Barcelona campus (room tbd)",
+   "location": "",
    "notes": [],
    "mode": "",
    "url": "https://blog.iese.edu/financeseminars/seminars/",
    "source": "IESE Research Seminars",
    "id": 219,
-   "campus": "Pedralbes"
+   "campus": "Pedralbes campus"
   }
  ]
 }

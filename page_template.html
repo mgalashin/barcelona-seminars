@@ -28,6 +28,7 @@
   --accent: #1f5e52;        /* Barcelona ironwork green */
   --accent-soft: #dbe6e1;
   --on-accent: #ffffff;
+  --accent-fill: var(--accent);  /* filled accent surfaces (today, selected) */
   --warn: #9a3412;
   --warn-soft: #f5e2d4;
   --f-applied: #2e6aa0;     /* field colours */
@@ -51,7 +52,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #131615; --block: #1c201e; --ink: #e5e8e4; --ink-2: #a9b0ab; --ink-3: #7d857f;
-    --rule: #2a2f2c; --rule-strong: #404743; --accent: #6dbea7; --accent-soft: #1b3832; --on-accent: #0a1d18;
+    --rule: #2a2f2c; --rule-strong: #404743; --accent: #6dbea7; --accent-soft: #1b3832; --on-accent: #f1f5f2; --accent-fill: #2d7564;
     --warn: #f0a070; --warn-soft: #3a2418;
     --f-applied: #86b0e6; --f-macro: #ef8a7f; --f-micro: #7cc68e; --f-finance: #e5ab55;
     --f-history: #ab9ae9; --f-metrics: #dc8bbd; --f-mgmt: #b8c46a; --f-other: #a3a9a5;
@@ -61,7 +62,7 @@
 }
 :root[data-theme="dark"] {
   --bg: #131615; --block: #1c201e; --ink: #e5e8e4; --ink-2: #a9b0ab; --ink-3: #7d857f;
-  --rule: #2a2f2c; --rule-strong: #404743; --accent: #6dbea7; --accent-soft: #1b3832; --on-accent: #0a1d18;
+  --rule: #2a2f2c; --rule-strong: #404743; --accent: #6dbea7; --accent-soft: #1b3832; --on-accent: #f1f5f2; --accent-fill: #2d7564;
   --warn: #f0a070; --warn-soft: #3a2418;
   --f-applied: #86b0e6; --f-macro: #ef8a7f; --f-micro: #7cc68e; --f-finance: #e5ab55;
   --f-history: #ab9ae9; --f-metrics: #dc8bbd; --f-mgmt: #b8c46a; --f-other: #a3a9a5;
@@ -113,24 +114,26 @@ button, input { font: inherit; color: inherit; }
 }
 .masthead p { margin: var(--s-3) 0 0; color: var(--ink-2); max-width: 62ch; }
 .stamp { text-align: right; font-size: 12.5px; color: var(--ink-3); line-height: 1.6; }
-.stamp strong { display: block; color: var(--ink-2); font-weight: 600; }
+.stamp .warn { color: var(--warn); }
 @media (max-width: 680px) {
   .masthead { grid-template-columns: 1fr; padding-block: var(--s-5) var(--s-4); }
   .stamp { text-align: left; }
   .pavement-band { height: 56px; background-size: 56px 56px; }
 }
 
-/* Field tiles: square chamfered blocks, a street of illes; the main filter.
-   Each tile is a size container so its content adapts: description when large, short name when tiny. */
+/* Field tiles: chamfered blocks a little wider than tall, a street of illes; the main filter.
+   Each tile is a size container so its content adapts: short name when tiny. */
 .tiles { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; }
 @media (max-width: 1000px) { .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 600px) { .tiles { gap: 8px; } }
 .tile {
-  --x: 12%; --c: var(--ink-3);
+  --x: 9%; --c: var(--ink-3);
   container-type: inline-size;
-  aspect-ratio: 1; min-width: 0; border: 0; cursor: pointer; text-align: left; overflow: hidden;
+  aspect-ratio: 5 / 4;  /* preferred shape; grows when a two-line name needs the room */
+  min-width: 0; border: 0; cursor: pointer; text-align: left;
+  align-self: stretch;  /* every block in a row takes the tallest one's height */
   background: linear-gradient(var(--c), var(--c)) top / 100% 6px no-repeat, var(--block);
-  padding: 13% 10% 9%;
+  width: 100%; padding: 11% 6% 8%;
   display: flex; flex-direction: column; gap: 3px;
   transition: opacity .15s, filter .15s;
 }
@@ -138,29 +141,19 @@ button, input { font: inherit; color: inherit; }
 .tile[aria-pressed="false"]:hover { opacity: .7; }
 .tile:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
 .tile .name { font-weight: 800; font-stretch: 108%; font-size: clamp(12.5px, 12.5cqi, 17px); line-height: 1.15; letter-spacing: .005em; text-wrap: balance; }
-.tile .short, .tile .host, .tile .next { display: none; }
-.tile .host { font-size: 12px; color: var(--ink-3); line-height: 1.35; }
+.tile .short { display: none; }
 .tile .nums { margin-top: auto; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
-.tile .big { font: 500 clamp(20px, 24cqi, 34px)/1 var(--f-mono); font-variant-numeric: tabular-nums; }
-.tile .small { font-size: 12px; color: var(--ink-3); }
-.tile .mix { font-size: 11.5px; color: var(--ink-2); line-height: 1.35; font-variant-numeric: tabular-nums; }
+.tile .big { font: 500 clamp(20px, 26cqi, 40px)/1 var(--f-mono); font-variant-numeric: tabular-nums; }
+.tile .small { font-size: 12.5px; color: var(--ink-3); }
+.tile .mix { font-size: 11px; color: var(--ink-2); line-height: 1.35; font-variant-numeric: tabular-nums; }
 .tile .mix b { font-weight: 700; color: var(--ink); }
 .tile .mi { white-space: nowrap; }
-.tile .next { font-size: 11.5px; color: var(--ink-2); line-height: 1.35; overflow: hidden; }
-.tile .next b { font-weight: 700; color: var(--ink); }
-@container (min-width: 150px) {
-  .tile .host, .tile .next { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-  .tile .next { -webkit-line-clamp: 2; margin-top: 4px; }
-}
-@container (min-width: 200px) { .tile .host { -webkit-line-clamp: 2; } }
+@media (min-width: 1001px) { .tile .mix { min-height: 2.7em; } }
 @container (max-width: 100px) {
   .tile .full, .tile .mix, .tile .small { display: none; }
   .tile .short { display: inline; }
   .tile .name { font-size: 12px; }
 }
-.tiles-note { font-size: 12.5px; color: var(--ink-3); margin: var(--s-2) 0 0; }
-.coverage { font-size: 12.5px; color: var(--ink-2); margin: var(--s-1) 0 0; max-width: 90ch; }
-.coverage .warn { color: var(--warn); }
 
 /* Sticky filter bar */
 .bar {
@@ -175,41 +168,44 @@ button, input { font: inherit; color: inherit; }
 .seg button {
   --x: var(--xamfra-sm);
   border: 0; background: var(--block); padding: 7px 14px; cursor: pointer;
-  font-size: 13px; font-weight: 600; color: var(--ink-2);
+  font-size: 12.5px; font-weight: 600; color: var(--ink-2);
 }
-.seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.seg button[aria-pressed="true"] { background: var(--accent-fill); color: var(--on-accent); }
 .seg button:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
 .search { flex: 1 1 220px; min-width: 0; position: relative; }
 .search input {
   width: 100%; padding: 7px 10px 7px 32px; border: 0; border-bottom: 2px solid var(--rule-strong);
-  background: var(--block); font-size: 14px; border-radius: 0;
+  background: var(--block); font-size: 14.5px; border-radius: 0;
 }
 .search input:focus { outline: none; border-bottom-color: var(--accent); }
 .search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: var(--ink-3); }
 .chips { display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; min-width: 0; padding-bottom: 1px; }
 .chips::-webkit-scrollbar { display: none; }
-.label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3); font-weight: 700; flex: none; min-width: 46px; }
 .chip {
-  flex: none; border: 1px solid var(--rule-strong); background: transparent;
-  padding: 3px 10px; font-size: 13px; cursor: pointer; color: var(--ink-2); white-space: nowrap;
+  --x: var(--xamfra-sm);
+  flex: none; border: 0; background: transparent;
+  padding: 4px 9px; font-size: 12.5px; cursor: pointer; color: var(--ink-2); white-space: nowrap;
 }
+.chip:hover { background: color-mix(in srgb, var(--block) 55%, transparent); }
 .chip .n { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); margin-left: 5px; }
-.chip[aria-pressed="true"] { background: var(--block); border-color: var(--accent); color: var(--ink); font-weight: 600; }
-.chip[aria-pressed="true"] .n { color: var(--accent); }
-.switch { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-2); cursor: pointer; flex: none; }
-.switch input { accent-color: var(--accent); width: 15px; height: 15px; margin: 0; }
-.reset { border: 0; background: none; color: var(--accent); font-size: 13px; font-weight: 600; cursor: pointer; padding: 3px 4px; text-decoration: underline; text-underline-offset: 2px; }
-.status { font-size: 12px; color: var(--ink-3); margin-left: auto; font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--block); color: var(--ink); font-weight: 600; }
+.chip:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
+.reset { border: 0; background: none; color: var(--accent); font-size: 12.5px; font-weight: 600; cursor: pointer; padding: 3px 4px; text-decoration: underline; text-underline-offset: 2px; }
+/* read out to screen readers, not shown */
+.status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 600px) {
+  .bar { position: static; }
+  .chips { margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px))); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+}
 
 /* Agenda: a week is a row of blocks on pavement */
 main { padding-block: var(--s-5) var(--s-7); }
 .week { margin-bottom: var(--s-6); }
 .week-head { display: flex; align-items: baseline; gap: var(--s-3); padding-bottom: var(--s-2); flex-wrap: wrap; }
-.week-head h2 { font-weight: 800; font-stretch: 125%; font-size: 22px; line-height: 1.15; margin: 0; letter-spacing: .005em; text-transform: uppercase; }
-.week-head .count { font-size: 13px; color: var(--ink-3); }
+.week-head h2 { font-weight: 800; font-stretch: 125%; font-size: 28px; line-height: 1.15; margin: 0; letter-spacing: .005em; text-transform: uppercase; }
+.week-head .count { font-size: 12.5px; color: var(--ink-3); }
 .week-head .copy {
-  --x: var(--xamfra-sm);
-  margin-left: auto; border: 0; background: var(--block); padding: 5px 12px; font-size: 12.5px; font-weight: 600; cursor: pointer; color: var(--ink-2);
+  margin-left: auto; border: 0; background: none; padding: 0; font-size: 12.5px; font-weight: 500; cursor: pointer; color: var(--ink-2);
 }
 .week-head .copy:hover { color: var(--accent); }
 .city {
@@ -229,39 +225,39 @@ main { padding-block: var(--s-5) var(--s-7); }
 .block-head { padding: 14px var(--s-4) 10px; display: flex; align-items: baseline; gap: var(--s-2); flex-wrap: wrap; border-bottom: 1px solid var(--rule-strong); }
 .block-head .dow { font-weight: 800; font-stretch: 125%; font-size: 20px; line-height: 1; text-transform: uppercase; letter-spacing: .02em; }
 .block-head .num { font: 500 20px/1 var(--f-mono); font-variant-numeric: tabular-nums; }
-.block-head .cat { font-size: 12px; color: var(--ink-3); width: 100%; }
-.block.today .block-head { background: var(--accent); color: var(--on-accent); border-bottom-color: var(--accent); }
+.block-head .cat { font-size: 12.5px; color: var(--ink-3); }
+.block.today .block-head { background: var(--accent-fill); color: var(--on-accent); border-bottom-color: var(--accent-fill); }
 .block.today .block-head .cat { color: var(--on-accent); opacity: .85; }
-.today-badge { margin-left: auto; font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.today-badge { margin-left: auto; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 .block.empty { background: color-mix(in srgb, var(--block) 72%, var(--bg)); }
 .block.empty .block-head { border-bottom: 0; color: var(--ink-3); }
-.block.empty .none { padding: 0 var(--s-4) var(--s-4); font-size: 12.5px; color: var(--ink-3); }
+.block.empty { align-self: start; }
+.block.empty .block-head { padding-bottom: 14px; }
 .events { padding: 0 var(--s-4) var(--s-3); }
 
-.ev { padding: var(--s-3) 0; display: grid; gap: 3px; }
+.ev { position: relative; padding: var(--s-3) 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 3px; }
 .ev + .ev { border-top: 1px solid var(--rule); }
-.ev-top { display: flex; align-items: center; gap: var(--s-2); font-size: 12.5px; }
-.ev .time { font: 500 14px/1.3 var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
+.ev-top { display: flex; align-items: center; gap: 2px var(--s-2); flex-wrap: wrap; font-size: 12.5px; padding-right: 24px; }
+.ev .time { font: 500 14.5px/1.3 var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
 .ev .time small { color: var(--ink-3); font-size: 11px; }
 .fld { --c: var(--f-other); display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700;
   letter-spacing: .07em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
 .fld::before { content: ""; width: 10px; height: 10px; background: var(--c); flex: none;
   clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%); }
 .inst { font-weight: 700; color: var(--ink); letter-spacing: .02em; }
-.ev .go { margin-left: auto; color: var(--accent); text-decoration: none; font-size: 15px; font-weight: 700; line-height: 1; padding: 4px 2px 4px 8px; }
-.ev .go:hover { color: var(--ink); }
+.ev .go { position: absolute; right: 0; top: calc(var(--s-3) - 2px); color: var(--ink-3); text-decoration: none; font-size: 15px; font-weight: 700; line-height: 1; padding: 4px 2px 4px 8px; }
+.ev .go:hover { color: var(--accent); }
 .ev .series { font-size: 12.5px; color: var(--ink-2); font-weight: 500; line-height: 1.35; }
-.tags { display: flex; gap: 4px; flex-wrap: wrap; }
-.tag { font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 0 5px; box-shadow: inset 0 0 0 1px var(--rule-strong); color: var(--ink-2); }
-.tag.warn { box-shadow: none; background: var(--warn-soft); color: var(--warn); }
+.tag { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 0 5px; }
+.tag.warn { background: var(--warn-soft); color: var(--warn); }
 .talk { display: grid; gap: 1px; margin-top: 2px; }
 .talk + .talk { margin-top: var(--s-2); padding-top: var(--s-2); border-top: 1px dashed var(--rule-strong); }
-.speaker { font-weight: 700; font-size: 15px; line-height: 1.3; }
-.speaker .affil { font-weight: 400; color: var(--ink-2); }
+.speaker { font-weight: 700; font-size: 14.5px; line-height: 1.3; }
+.speaker .affil { font-weight: 400; font-size: 12.5px; color: var(--ink-2); }
 .title { font-size: 14.5px; line-height: 1.4; color: var(--ink); text-wrap: pretty; }
 .title.tba { color: var(--ink-3); font-style: italic; }
-.coauth { color: var(--ink-3); font-size: 13px; }
-.meta { font-size: 12px; color: var(--ink-3); line-height: 1.4; margin-top: 2px; }
+.coauth { color: var(--ink-3); font-size: 12.5px; }
+.meta { font-size: 12.5px; color: var(--ink-3); line-height: 1.4; margin-top: 2px; }
 .meta span + span::before { content: " · "; }
 .ev.canceled .speaker, .ev.canceled .title { text-decoration: line-through; color: var(--ink-3); }
 mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: inherit; padding: 0 1px; }
@@ -270,20 +266,20 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
 .empty-state h2 { font-weight: 800; font-stretch: 125%; font-size: 22px; margin: 0 0 var(--s-2); color: var(--ink); text-transform: uppercase; }
 
 /* Sources */
-.sources { border-top: 2px solid var(--ink); padding-block: var(--s-5) var(--s-7); display: grid; gap: var(--s-4); }
-.sources h2 { font-weight: 800; font-stretch: 125%; font-size: 22px; margin: 0; text-transform: uppercase; }
+.sources { padding-block: 0 var(--s-7); display: grid; gap: var(--s-4); }
+.sources h2 { font-weight: 800; font-stretch: 125%; font-size: 22px; margin: 0; text-transform: uppercase; border-top: 2px solid var(--ink); padding-top: var(--s-5); }
 .src-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-6); margin: 0; padding: 0; list-style: none; }
 @media (max-width: 720px) { .src-list { grid-template-columns: 1fr; } }
 .src-list li { min-width: 0; }
 .src-list .src-name { font-weight: 700; }
-.src-list .src-count { font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); margin-left: 6px; }
-.src-list p { margin: 4px 0 0; color: var(--ink-2); font-size: 13.5px; max-width: 62ch; }
-.src-list a { font-size: 12.5px; color: var(--accent); word-break: break-all; }
+.src-list .src-count { font-family: var(--f-mono); font-size: 12.5px; color: var(--ink-3); margin-left: 6px; }
+.src-list p { margin: 4px 0 0; color: var(--ink-2); font-size: 12.5px; max-width: 62ch; }
+.src-list a { font-size: 12.5px; color: var(--accent); overflow-wrap: anywhere; }
 .fine { font-size: 12.5px; color: var(--ink-3); max-width: 72ch; margin: 0; }
 
 .toast {
   position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
-  background: var(--ink); color: var(--bg); padding: 8px 14px; font-size: 13px; z-index: 20;
+  background: var(--ink); color: var(--bg); padding: 8px 14px; font-size: 12.5px; z-index: 20;
 }
 .copybox { width: 100%; min-height: 140px; margin-bottom: var(--s-3); font: 12px/1.5 var(--f-mono); background: var(--block); border: 1px solid var(--rule-strong); padding: var(--s-2); color: var(--ink); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -295,17 +291,15 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
 
 <header class="wrap masthead">
   <div>
-    <p class="eyebrow">Seminaris d'economia · UB · UPF · UAB · IESE · Esade</p>
+    <p class="eyebrow">Seminaris d'economia</p>
     <h1>Barcelona Econ Seminars</h1>
-    <p id="lede">Every published economics seminar in the city, sorted by field rather than by campus, so you can find the talk in your area wherever it is. Refreshed every morning from the UB, BSE (UPF, UAB, CREI, IAE-CSIC), IESE and Esade calendars.</p>
+    <p id="lede">Economics seminars at UB, UPF, UAB, IESE and Esade in one agenda. Pick a field below to follow it across campuses.</p>
   </div>
   <div class="stamp" id="stamp"></div>
 </header>
 
 <section class="wrap" aria-label="Fields">
   <div class="tiles" id="tiles"></div>
-  <p class="tiles-note">Tap a field to show only it; tap others to add them back. Each tile lists where its upcoming talks are.</p>
-  <p class="coverage" id="coverage"></p>
 </section>
 
 <div class="bar">
@@ -321,9 +315,8 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
         <input id="q" type="search" placeholder="Search speaker, title, series, affiliation" autocomplete="off">
       </label>
     </div>
-    <div class="row"><span class="label">Where</span><div class="chips" id="insts"></div></div>
-    <div class="row"><span class="label">Type</span><div class="chips" id="kinds"></div>
-      <label class="switch" for="internal"><input type="checkbox" id="internal"> Internal &amp; PhD sessions</label>
+    <div class="row"><div class="chips" id="insts" role="group" aria-label="Institution"></div></div>
+    <div class="row"><div class="chips" id="kinds" role="group" aria-label="Event type"></div>
       <button type="button" class="reset" id="reset" hidden>Reset filters</button>
       <span class="status" id="status" aria-live="polite"></span>
     </div>
@@ -336,7 +329,7 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   <h2 id="src-h">Sources and coverage</h2>
   <ul class="src-list" id="sources"></ul>
   <p class="fine" id="fine"></p>
-  <p class="fine">Drawn after Ildefons Cerdà's 1859 plan for the Eixample: each day is a square block with cut corners (the xamfrans). The band on top is the panot de flor, the flower tile of Barcelona's pavements.</p>
+  <p class="fine">The design borrows from Ildefons Cerdà's 1859 plan for the Eixample. Each day is a block with cut corners (xamfrans), and the band on top is the panot de flor, the flower tile of Barcelona's pavements.</p>
 </section>
 
 <div class="toast" id="toast" hidden></div>
@@ -353,22 +346,22 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   const INSTS = [
     { key: "UB", name: "UB", host: "UB School of Economics" },
     { key: "UPF", name: "UPF", host: "UPF Economics and CREI" },
-    { key: "UAB", name: "UAB", host: "UAB economics (UFAE) and IAE-CSIC" },
+    { key: "UAB", name: "UAB", host: "UAB Department of Economics and IAE-CSIC" },
     { key: "BSE", name: "BSE", host: "Barcelona School of Economics, school-wide events" },
     { key: "IESE", name: "IESE", host: "IESE economics and finance seminars" },
-    { key: "Esade", name: "Esade", host: "Esade GREF seminars" },
+    { key: "Esade", name: "Esade", host: "Esade economics and finance seminars" },
   ];
-  const INST_KEYS = INSTS.map(i => i.key);
+  const INST_KEYS = INSTS.filter(i => EVENTS.some(e => e.inst === i.key)).map(i => i.key);  // Esade may have none
   // the main filter; colour follows the field so one field reads across institutions
   const FIELDS = [
     { key: "Applied & policy", short: "Applied", c: "--f-applied", desc: "Labour, public, urban, development, political economy" },
     { key: "Macro & international", short: "Macro", c: "--f-macro", desc: "Macro, monetary, trade, growth" },
     { key: "Micro & theory", short: "Micro", c: "--f-micro", desc: "Theory, games, IO, behavioural" },
     { key: "Finance", short: "Finance", c: "--f-finance", desc: "Corporate finance, banking, asset pricing" },
-    { key: "Economic history", short: "History", c: "--f-history", desc: "Economic and long-run history" },
-    { key: "Econometrics & statistics", short: "Metrics", c: "--f-metrics", desc: "Econometrics and statistics" },
+    { key: "Economic history", short: "History", c: "--f-history", desc: "Economic history, including macro history" },
+    { key: "Econometrics & statistics", short: "Metrics", c: "--f-metrics", desc: "Econometric theory, applied econometrics, statistics" },
     { key: "Management", short: "Management", tiny: "Mgmt", c: "--f-mgmt", desc: "Management and strategy" },
-    { key: "Other", short: "Other", c: "--f-other", desc: "Lectures and events without one field" },
+    { key: "Other", short: "Other", c: "--f-other", desc: "Lectures and events not tied to one field" },
   ];
   const FIELD_KEYS = FIELDS.map(f => f.key);
   const FIELD_OF = Object.fromEntries(FIELDS.map(f => [f.key, f]));
@@ -414,6 +407,7 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) || "null");
     if (saved && typeof saved === "object") S = Object.assign(S, saved, { q: "" });
+    S.insts = S.insts.filter(k => INST_KEYS.includes(k)); if (!S.insts.length) S.insts = INST_KEYS.slice();
   } catch (_) { /* storage unavailable */ }
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(Object.assign({}, S, { q: "" }))); } catch (_) {} };
 
@@ -443,54 +437,39 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   const src = name => META.sources.find(s => s.name.startsWith(name)) || {};
 
   const collected = new Date(META.collected_at);
-  const whenStr = d => `${longDate(localDay(d))}, ${timeFmt.format(d)}`;
-  const staleSrcs = META.sources.filter(s => !s.ok);
-  $("stamp").innerHTML =
-    `<strong>Updated daily · last refreshed ${esc(whenStr(collected))}</strong>` +
-    `${EVENTS.length} events · academic year ${esc(META.academic_year)}<br>Times are Barcelona time` +
-    (staleSrcs.length ? `<br><span style="color: var(--warn)">${staleSrcs.length} source${staleSrcs.length === 1 ? "" : "s"} could not be reached today</span>` : "");
+  const calendarName = { BSE: "BSE calendar", UB: "UB site", IESE: "IESE page", Esade: "Esade page" };
+  $("stamp").innerHTML = `Updated ${esc(dm(localDay(collected)))}, ${esc(timeFmt.format(collected))}` +
+    META.sources.filter(s => !s.ok).map(s =>
+      `<br><span class="warn">${esc(calendarName[s.key] || s.name)} unreachable · listings as of ${!s.last_ok ? "an earlier run" : localDay(new Date(s.last_ok)) === localDay(collected) ? esc(timeFmt.format(new Date(s.last_ok))) : esc(dm(localDay(new Date(s.last_ok))))}</span>`).join("");
 
   const esadeSrc = src("Esade");
-  const ieseN = EVENTS.filter(e => e.inst === "IESE").length;
-
-  // gaps in coverage, said once under the tiles: a source down today, IESE's short list, Esade's silence
-  function renderCoverage() {
-    const who = { BSE: "The BSE calendar (UPF, UAB, CREI, IAE-CSIC)", UB: "UB's calendar", IESE: "IESE's seminar page", Esade: "Esade's seminar page" };
-    const parts = META.sources.filter(s => !s.ok).map(s =>
-      `<span class="warn">${esc(who[s.key] || s.name)} couldn't be reached today, so its events are from ${s.last_ok ? esc(dm(localDay(new Date(s.last_ok)))) : "an earlier day"}.</span>`);
-    if (ieseN <= 5) parts.push(`IESE lists only ${ieseN} date${ieseN === 1 ? "" : "s"}, without titles.`);
-    if (!EVENTS.some(e => e.inst === "Esade"))
-      parts.push(`Esade has posted no seminars since ${esadeSrc.extra ? esc(longDate(esadeSrc.extra)) : "last year"}.`);
-    $("coverage").innerHTML = parts.join(" ");
-  }
 
   function renderTiles() {
-    const vis = e => (S.internal || !e.internal) && S.kinds.includes(e.kind);
+    const vis = e => (S.internal || !e.internal) && S.kinds.includes(e.kind) && S.insts.includes(e.inst) && matchQ(e);
+    const unit = { upcoming: "upcoming", past: "past", all: "this year" }[S.view];
     $("tiles").innerHTML = FIELDS.map(f => {
       const inField = EVENTS.filter(e => e.field === f.key && vis(e));
       const up = inField.filter(e => e._endDay >= TODAY);
-      const where = INSTS.map(i => [i.key, up.filter(e => e.inst === i.key).length])
+      const shown = inField.filter(inView);
+      const where = INSTS.map(i => [i.key, shown.filter(e => e.inst === i.key).length])
         .filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
-      const mix = where.length ? where.map(([k, n]) => `<span class="mi"><b>${k}</b> ${n}</span>`).join(" · ") : "Nothing scheduled yet";
-      // the field's next talk, wherever it is: the nudge to cross town
-      const nx = up.find(e => !e.canceled && e.talks.some(t => t.speaker && t.speaker !== "TBA"));
-      const nxt = nx ? `<span class="next">Next <b>${esc(dow(nx._day))} ${esc(dm(nx._day))}</b> · ${esc(nx.talks.find(t => t.speaker && t.speaker !== "TBA").speaker)} · ${esc(nx.inst)}</span>` : "";
+      const mix = where.length ? where.map(([k, n]) => `<span class="mi"><b>${k}</b> ${n}</span>`).join(" · ") : "None";
       return `<button type="button" class="tile xamfra" data-field="${esc(f.key)}" style="--c: var(${f.c})" aria-pressed="${S.fields.includes(f.key)}"
-          title="${esc(`${f.key}: ${f.desc}. ${up.length} upcoming, ${inField.length} this year.`)}" aria-label="${esc(f.key)}: ${up.length} upcoming">
+          title="${esc(`${f.key}: ${f.desc}. ${up.length} upcoming, ${inField.length} this year.`)}" aria-label="${esc(f.key)}: ${shown.length} ${unit}">
         <span class="name"><span class="full">${esc(f.key)}</span><span class="short">${esc(f.tiny || f.short)}</span></span>
-        <span class="host">${esc(f.desc)}</span>${nxt}
-        <span class="nums"><span class="big">${up.length}</span><span class="small">upcoming</span></span>
+        <span class="nums"><span class="big">${shown.length}</span><span class="small">${unit}</span></span>
         <span class="mix">${mix}</span></button>`;
     }).join("");
   }
 
   function renderChips() {
     const count = (dim, val) => EVENTS.filter(e => pass(e, dim) && e[dim] === val).length;
-    $("insts").innerHTML = INSTS.map(i =>
-      `<button type="button" class="chip" data-inst="${i.key}" title="${esc(i.host)}" aria-pressed="${S.insts.includes(i.key)}">${i.name}<span class="n">${count("inst", i.key)}</span></button>`).join("");
-    $("kinds").innerHTML = KINDS.map(k =>
-      `<button type="button" class="chip" data-kind="${k.key}" aria-pressed="${S.kinds.includes(k.key)}">${k.name}<span class="n">${count("kind", k.key)}</span></button>`).join("");
-    $("internal").checked = S.internal;
+    $("insts").innerHTML = INSTS.filter(i => INST_KEYS.includes(i.key)).map(i =>
+      `<button type="button" class="chip xamfra" data-inst="${i.key}" title="${esc(i.host)}" aria-pressed="${S.insts.includes(i.key)}">${i.name}<span class="n">${count("inst", i.key)}</span></button>`).join("");
+    const nInternal = EVENTS.filter(e => pass(e, "internal") && e.internal).length;
+    $("kinds").innerHTML = KINDS.filter(k => EVENTS.some(e => e.kind === k.key)).map(k =>
+      `<button type="button" class="chip xamfra" data-kind="${k.key}" aria-pressed="${S.kinds.includes(k.key)}">${k.name}<span class="n">${count("kind", k.key)}</span></button>`).join("") +
+      `<button type="button" class="chip xamfra" data-internal="1" title="Internal lunch seminars and PhD sessions" aria-pressed="${S.internal}">Internal &amp; PhD<span class="n">${nInternal}</span></button>`;
     document.querySelectorAll("#view button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === S.view)));
     const def = fresh();
     const dirty = S.insts.length !== def.insts.length || S.fields.length !== def.fields.length ||
@@ -499,47 +478,57 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   }
 
   // ---- highlighting
+  const FOLD = { a: "[aàáâä]", e: "[eèéêë]", i: "[iìíîï]", o: "[oòóôö]", u: "[uùúûü]", c: "[cç]", n: "[nñ]" };
   function hl(text) {
-    const t = esc(text);
-    if (!S.q) return t;
-    const terms = S.q.split(/\s+/).filter(w => w.length > 1).map(w => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-    if (!terms.length) return t;
-    return t.replace(new RegExp("(" + terms.join("|") + ")", "gi"), "<mark>$1</mark>");
+    const raw = String(text == null ? "" : text);
+    if (!S.q) return esc(raw);
+    const terms = S.q.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/\s+/).filter(w => w.length > 1)
+      .map(w => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/[aeioucn]/gi, ch => FOLD[ch.toLowerCase()]));
+    if (!terms.length) return esc(raw);
+    return raw.split(new RegExp("(" + terms.join("|") + ")", "gi"))
+      .map((part, i) => i % 2 ? "<mark>" + esc(part) + "</mark>" : esc(part)).join("");
   }
 
-  function talkHTML(t) {
+  function talkHTML(t, e) {
     const spk = t.speaker && t.speaker !== "TBA"
       ? `<div class="speaker">${hl(t.speaker)}${t.affil ? ` <span class="affil">(${hl(t.affil)})</span>` : ""}</div>`
       : `<div class="speaker"><span class="affil">Speaker to be announced</span></div>`;
     const tba = !t.title || /^(tba|tbc|tbd)$/i.test(t.title);
-    const title = tba ? `<div class="title tba">Title to be announced</div>` : `<div class="title">${hl(t.title)}</div>`;
+    const title = tba ? (e.inst === "IESE" ? "" : `<div class="title tba">Title to be announced</div>`) : `<div class="title">${hl(t.title)}</div>`;
     const co = t.note ? `<div class="coauth">${hl(t.note)}</div>` : "";
     return `<div class="talk">${spk}${title}${co}</div>`;
   }
 
+  // notes from the source that add nothing: links, sign-up and programme prompts, funding lines,
+  // apologies next to a cancellation, bare TBAs, and day or time lines the card already shows
+  const NOTE_SKIP = /^(https?:|register|program here|detailed program|program tb[ac]|time:|cancel|this seminar is (partially )?(supported|funded))|^[“"]?\s*tb[acd]\s*[”"]?$|^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$/i;
+  // the series without the institution it already names ("UPF Finance Seminar" → "Finance Seminar", "CREI-UPF …" → "CREI …")
+  const seriesOf = e => e.series.replace(new RegExp("^" + e.inst + "[ –-]|-" + e.inst + "(?= )"), "");
+  const DATE_ONLY = e => e.start.length === 10;  // the source gave a day but no time
+
   function evHTML(e) {
     const talks = e.talks.filter(t => t.speaker || t.title);
-    const notes = (e.notes || []).filter(n => !/^(https?:|register|program here)/i.test(n));
-    let body = talks.map(talkHTML).join("");
+    const notes = (e.notes || []).filter(n => !NOTE_SKIP.test(n));
+    let body = talks.map(t => talkHTML(t, e)).join("");
     if (!talks.length) body = `<div class="title">${notes.length ? hl(notes.join(" ")) : "Details on the event page"}</div>`;
-    const tags = [];
-    if (e.canceled) tags.push(`<span class="tag warn">Cancelled</span>`);
-    if (e.internal) tags.push(`<span class="tag">Internal</span>`);
-    if (/^(online|hybrid)$/i.test(e.mode || "")) tags.push(`<span class="tag">${esc(e.mode)}</span>`);
-    if (e.kind !== "seminar") tags.push(`<span class="tag">${esc((KINDS.find(k => k.key === e.kind) || {}).name || e.kind).replace(/s$/, "")}</span>`);
     const meta = [];
     if (e.location) meta.push(esc(e.location));
     if (e.campus && !(e.location || "").toLowerCase().includes(e.campus.split(" ")[0].toLowerCase())) meta.push(esc(e.campus));
+    if (/^(online|hybrid)$/i.test(e.mode || "")) meta.push(esc(e.mode));
+    if (e.internal) meta.push("Internal");
     if (talks.length) notes.forEach(n => meta.push(hl(n)));
-    const time = e.all_day ? `<span class="time">All day</span>`
+    // add the event type when the series name doesn't already say it
+    const series = seriesOf(e);
+    const kindName = ((KINDS.find(k => k.key === e.kind) || {}).name || "").replace(/s$/, "");
+    const kindNote = e.kind !== "seminar" && kindName && !series.toLowerCase().includes(kindName.toLowerCase()) ? ` · ${esc(kindName)}` : "";
+    const time = DATE_ONLY(e) ? `<span class="time">Time TBA</span>` : e.all_day ? `<span class="time">All day</span>`
       : `<span class="time">${e._time}${e._endTime && e._endDay === e._day ? `<small>–${e._endTime}</small>` : ""}</span>`;
     const host = e.host && e.host !== e.series ? ` title="${esc(e.host)}"` : "";
     const f = FIELD_OF[e.field] || FIELD_OF.Other;
     return `<article class="ev${e.canceled ? " canceled" : ""}">
-      <div class="ev-top">${time}<span class="fld" style="--c: var(${f.c})" title="${esc(f.key)}">${esc(f.short)}</span>
+      <div class="ev-top">${time}<span class="fld" style="--c: var(${f.c})" title="${esc(f.key)}">${esc(f.short)}</span>${e.canceled ? `<span class="tag warn">Cancelled</span>` : ""}
         <a class="go" href="${esc(e.url)}" target="_blank" rel="noopener" title="Open the event page" aria-label="Event page">↗</a></div>
-      <div class="series"><span class="inst"${host}>${esc(e.inst)}</span> · ${hl(e.series)}</div>
-      ${tags.length ? `<div class="tags">${tags.join("")}</div>` : ""}
+      <div class="series"><span class="inst"${host}>${esc(e.inst)}</span> · ${hl(series)}${kindNote}</div>
       ${body}
       ${meta.length ? `<div class="meta">${meta.map(m => `<span>${m}</span>`).join("")}</div>` : ""}
     </article>`;
@@ -547,12 +536,10 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
 
   function blockHTML(d, evs) {
     const label = `<div class="block-head"><span class="dow">${dow(d)}</span><span class="num">${utc(d).getUTCDate()}</span>` +
-      (d === TODAY ? `<span class="today-badge">Today</span>` : "") +
-      `<span class="cat">${MON[utc(d).getUTCMonth()]} · ${DOW_CA[utc(d).getUTCDay()]}</span></div>`;
-    if (!evs.length) {
-      const why = S.view === "upcoming" && d < TODAY ? "Already past" : "No seminars";
-      return `<div class="block empty xamfra" aria-label="${esc(dow(d) + " " + dm(d))}: ${why}">${label}<div class="none">${why}</div></div>`;
-    }
+      `<span class="cat">${DOW_CA[utc(d).getUTCDay()]}</span>` +
+      (d === TODAY ? `<span class="today-badge">Today</span>` : "") + `</div>`;
+    if (!evs.length)
+      return `<div class="block empty xamfra" aria-label="${esc(dow(d) + " " + dm(d))}: no events">${label}</div>`;
     return `<section class="block xamfra${d === TODAY ? " today" : ""}" aria-label="${esc(dow(d) + " " + dm(d))}">${label}
       <div class="events">${evs.map(evHTML).join("")}</div></section>`;
   }
@@ -574,19 +561,23 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
     $("status").textContent = `${rows.length} shown` + (hidden ? ` · ${hidden} filtered out` : "");
     if (!rows.length) {
       $("list").innerHTML = `<div class="empty-state"><h2>No events match these filters</h2>
-        <p>Try another field or type, or include internal sessions.</p>
+        ${S.q && S.view !== "all" && EVENTS.some(e => !inView(e) && matchQ(e) && S.insts.includes(e.inst) && S.fields.includes(e.field) && S.kinds.includes(e.kind) && (S.internal || !e.internal)) ? `<p>There are matches outside this range. Try Whole year.</p>` : ""}
         <button type="button" class="reset" data-reset>Reset filters</button></div>`;
       return;
     }
     const thisMon = mondayOf(TODAY), nextMon = addDays(thisMon, 7);
+    const range = (a, b) => utc(a).getUTCMonth() === utc(b).getUTCMonth()
+      ? `${utc(a).getUTCDate()}–${dm(b)}` : `${dm(a)} – ${dm(b)}`;
     $("list").innerHTML = WEEKS.map(([w, days], wi) => {
-      const n = [...days.values()].reduce((a, d) => a + d.length, 0);
       const label = w === thisMon ? "This week" : w === nextMon ? "Next week" : "Week of " + dm(w);
-      // Monday to Friday always, as a row of blocks; a weekend day only when something is on
-      const cols = [0, 1, 2, 3, 4, 5, 6].map(k => addDays(w, k)).filter((d, k) => k < 5 || days.has(d));
+      // Monday to Friday as a row of blocks, a weekend day only when something is on;
+      // days outside the current view (already past, or still to come) are left out
+      const cols = [0, 1, 2, 3, 4, 5, 6].map(k => addDays(w, k))
+        .filter((d, k) => (k < 5 || days.has(d)) &&
+          !(S.view === "upcoming" && d < TODAY && !days.has(d)) && !(S.view === "past" && d >= TODAY));
       return `<section class="week" aria-label="${esc(label)}">
-        <div class="week-head"><h2>${esc(label)}</h2><span class="count">${w === thisMon || w === nextMon ? dm(w) + " – " + dm(addDays(w, 4)) + " · " : ""}${n} event${n === 1 ? "" : "s"}</span>
-          <button type="button" class="copy xamfra" data-week="${wi}">Copy as text</button></div>
+        <div class="week-head"><h2>${esc(label)}</h2>${w === thisMon || w === nextMon ? `<span class="count">${range(w, addDays(w, 4))}</span>` : ""}
+          <button type="button" class="copy" data-week="${wi}">Copy as text</button></div>
         <div class="city" style="--n: ${cols.length}">${cols.map(d => blockHTML(d, days.get(d) || [])).join("")}</div>
       </section>`;
     }).join("");
@@ -594,25 +585,23 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
 
   function renderSources() {
     const blurb = {
-      "BSE": "The shared calendar of the Barcelona School of Economics. It carries the UPF Department of Economics and Business, CREI, the UAB economics department (UFAE, the Bellaterra series and MicroLab), IAE-CSIC, and school-wide lectures.",
-      "UB": "The activities list of the UB School of Economics: IEB, AQR-IREA, IPERG, Economic Theory, Game Theory, Economic History and the International Macro History Online Seminar, plus thesis defences.",
-      "IESE": `IESE's research seminar page, titled 'Seminars in Economics and Finance'. For ${META.academic_year} it lists ${ieseN} speaker${ieseN === 1 ? "" : "s"} and dates, without paper titles. Rooms are often still 'tbd'.`,
-      "Esade": "The events page of Esade's Group for Research in Economics and Finance (GREF). Its newest seminar is from " + (esadeSrc.extra ? longDate(esadeSrc.extra) : "last year") + ", and its organisers line still refers to 2024–25. No 2026–27 seminars are posted yet.",
+      "BSE": "UPF Economics and Business, CREI, UAB economics (Bellaterra series, MicroLab), IAE-CSIC and school-wide lectures.",
+      "UB": "IEB, AQR-IREA, IPERG, Economic Theory, Game Theory, Economic History and the International Macro History Online Seminar, plus thesis defences.",
+      "IESE": "Economics and finance seminars. Speakers and dates only, no paper titles.",
+      "Esade": "Seminars of Esade's Group for Research in Economics and Finance." +
+        (!EVENTS.some(e => e.inst === "Esade") && esadeSrc.extra ? ` The latest seminar it lists was on ${longDate(esadeSrc.extra)}.` : ""),
     };
     $("sources").innerHTML = META.sources.map(s => {
       const k = Object.keys(blurb).find(b => s.name.startsWith(b));
-      const ok = s.ok ? "" : ` <span class="tag warn">Unreachable today</span>`;
-      const staleP = s.ok ? "" : `<p style="color: var(--warn)">Today's fetch failed, so this shows the events from the last good fetch` +
-        (s.last_ok ? ` on ${esc(whenStr(new Date(s.last_ok)))}` : "") + `.</p>`;
+      const ok = s.ok ? "" : ` <span class="tag warn">Unreachable</span>`;
       return `<li><span class="src-name">${esc(s.name)}</span><span class="src-count">${s.count} events</span>${ok}
-        <p>${esc(blurb[k] || "")}</p>${staleP}<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url.replace(/^https?:\/\//, ""))}</a></li>`;
+        <p>${esc(blurb[k] || "")}</p><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url.replace(/^https?:\/\//, ""))}</a></li>`;
     }).join("");
     $("fine").textContent =
-      `The page is rebuilt every morning from the four calendars above; the last rebuild was ${whenStr(collected)}. ` +
-      `If a calendar can't be reached, its events from the last good day stay up and are marked. ` +
-      `It covers ${longDate(META.window[0])} to ${longDate(META.window[1])} and moves on to the next academic year each August. ` +
-      `"Upcoming" is worked out from today's date when you open the page. Fields are assigned from each series name, so check the series if a talk looks misfiled. ` +
-      `Internal lunch seminars and PhD sessions are hidden by default; the BSE public calendar hides them too.`;
+      `Refreshed every morning from the sources above; times are Barcelona time. ` +
+      `The agenda covers ${longDate(META.window[0])} to ${longDate(META.window[1])} and switches to the next academic year each August. ` +
+      `Fields are guessed from the series name or talk title, so a talk can end up in the wrong field. ` +
+      `Thesis defences, community events and internal or PhD sessions are off by default.`;
   }
 
   function renderAll() { renderTiles(); renderChips(); renderList(); }
@@ -620,13 +609,17 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   // ---- copy a week as plain text
   function weekText(wi) {
     const [w, days] = WEEKS[wi];
-    const lines = [`Barcelona econ seminars · week of ${dm(w)}`];
+    const lines = [`Barcelona Econ Seminars · week of ${dm(w)}`];
     for (const [d, evs] of days) {
       lines.push("", `${dow(d)} ${dm(d)}`);
       for (const e of evs) {
         const talk = e.talks.filter(t => t.speaker || t.title).map(t =>
           `${t.speaker || "TBA"}${t.affil ? " (" + t.affil + ")" : ""}${t.title && !/^(tba|tbc|tbd)$/i.test(t.title) ? ", “" + t.title + "”" : ""}`).join("; ");
-        lines.push(`  ${e.all_day ? "all day" : e._time}  ${(FIELD_OF[e.field] || FIELD_OF.Other).short} · ${e.inst} · ${e.series}${e.canceled ? " [CANCELLED]" : ""}${talk ? " · " + talk : ""}${e.location ? " · " + e.location : ""}`);
+        const where = [e.location,
+          e.campus && !(e.location || "").toLowerCase().includes(e.campus.split(" ")[0].toLowerCase()) ? e.campus : "",
+          /^(online|hybrid)$/i.test(e.mode || "") ? e.mode : "",
+          ...(talk ? (e.notes || []).filter(n => !NOTE_SKIP.test(n)) : [])].filter(Boolean).map(s => " · " + s.replace(/\s+/g, " ")).join("");
+        lines.push(`  ${DATE_ONLY(e) ? "time TBA" : e.all_day ? "all day" : e._time}  ${(FIELD_OF[e.field] || FIELD_OF.Other).short} · ${e.inst} · ${seriesOf(e)}${e.canceled ? " [CANCELLED]" : ""}${talk ? " · " + talk : ""}${where}`);
       }
     }
     return lines.join("\n");
@@ -652,6 +645,7 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
     else if (b.dataset.field) { S.fields = toggle(S.fields, FIELD_KEYS, b.dataset.field); }
     else if (b.dataset.kind) { S.kinds = S.kinds.includes(b.dataset.kind) ? S.kinds.filter(k => k !== b.dataset.kind) : S.kinds.concat(b.dataset.kind); if (!S.kinds.length) S.kinds = DEFAULT_KINDS.slice(); }
     else if (b.dataset.view) { S.view = b.dataset.view; }
+    else if (b.dataset.internal) { S.internal = !S.internal; }
     else if (b.id === "reset" || "reset" in b.dataset) { S = fresh(); $("q").value = ""; }
     else if (b.dataset.week) {
       const text = weekText(+b.dataset.week);
@@ -663,12 +657,10 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
     } else return;
     save(); renderAll();
   });
-  $("internal").addEventListener("change", e => { S.internal = e.target.checked; save(); renderAll(); });
   let qT;
-  $("q").addEventListener("input", e => { clearTimeout(qT); qT = setTimeout(() => { S.q = e.target.value.trim(); renderChips(); renderList(); }, 120); });
+  $("q").addEventListener("input", e => { clearTimeout(qT); qT = setTimeout(() => { S.q = e.target.value.trim(); renderAll(); }, 120); });
 
   renderSources();
-  renderCoverage();
   renderAll();
 })();
 </script>
