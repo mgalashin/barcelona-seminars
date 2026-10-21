@@ -438,10 +438,10 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
 
   const collected = new Date(META.collected_at);
   const calendarName = { BSE: "BSE calendar", UB: "UB site", IESE: "IESE page", Esade: "Esade page", IEB: "IEB site",
-    "UAB-AE": "UAB applied economics page", GCAL: "A seminar calendar", CREI: "CREI site", "UB-MISC": "A UB department page",
+    "UAB-AE": "UAB applied economics page", GCAL: "A seminar calendar", CREI: "CREI site", "UB-MACRO": "UB macro workshop page", "UB-DEPT": "UB department pages",
     "UAB-UHE": "UAB economic history page", "UPF-STATS": "UPF statistics page" };
   $("stamp").innerHTML = `Updated ${esc(dm(localDay(collected)))}, ${esc(timeFmt.format(collected))}` +
-    META.sources.filter(s => !s.ok).map(s =>
+    META.sources.filter(s => !s.ok && !s.quiet).map(s =>
       `<br><span class="warn">${esc(calendarName[s.key] || s.name)} unreachable · listings as of ${!s.last_ok ? "an earlier run" : localDay(new Date(s.last_ok)) === localDay(collected) ? esc(timeFmt.format(new Date(s.last_ok))) : esc(dm(localDay(new Date(s.last_ok))))}</span>`).join("");
 
   const esadeSrc = src("Esade");
@@ -598,7 +598,9 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
     $("sources").innerHTML = META.sources.map(s => {
       const k = Object.keys(blurb).find(b => s.name.startsWith(b));
       const about = s.about ? s.about + (s.key === "Esade" ? esadeNote : "") : blurb[k] || "";
-      const ok = s.ok ? "" : ` <span class="tag warn">Unreachable</span>`;
+      const ok = s.ok ? "" : s.quiet
+        ? `<span class="src-count">· saved listings${s.last_ok ? " from " + esc(dm(localDay(new Date(s.last_ok)))) : ""}</span>`
+        : ` <span class="tag warn">Unreachable</span>`;
       return `<li><span class="src-name">${esc(s.name)}</span><span class="src-count">${s.count} events</span>${ok}
         <p>${esc(about)}</p><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url.replace(/^https?:\/\//, ""))}</a></li>`;
     }).join("");

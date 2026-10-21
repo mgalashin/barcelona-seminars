@@ -66,7 +66,8 @@ jobs:
           meta = json.load(open("data/seminars.json"))["meta"]
           for s in meta["sources"]:
               print("OK  " if s["ok"] else "DOWN", s["name"], s["count"], s.get("error", ""))
-          bad = [s for s in meta["sources"] if not s["ok"]]
+          # sources marked quiet are known to refuse GitHub's servers; their saved events stay up
+          bad = [s for s in meta["sources"] if not s["ok"] and not s.get("quiet")]
           if bad:
               sys.exit(f"{len(bad)} source(s) unreachable; their last good data was kept")
           EOF

@@ -541,6 +541,8 @@ def merge_duplicates(events, secondary):
             continue
         twin = None
         for p in by_day.get(e["start"][:10], []):
+            if p["source"] == e["source"]:
+                continue  # only merge across sources; a source's own repeats (e.g. workshop days) are real
             same_person = _surnames(p) & _surnames(e)
             same_slot = p["start"] == e["start"] and (not _surnames(p) or not _surnames(e))
             if same_person or same_slot:
@@ -550,7 +552,7 @@ def merge_duplicates(events, secondary):
             # the same speakerless event (a colloquium, say) listed a few days apart by two sources,
             # in different languages: same time of day, same institution, a long word in common
             for p in kept:
-                if (p["inst"] == e["inst"] and not _surnames(p) and p["start"][10:] == e["start"][10:]
+                if (p["source"] != e["source"] and p["inst"] == e["inst"] and not _surnames(p) and p["start"][10:] == e["start"][10:]
                         and abs((dt.date.fromisoformat(p["start"][:10]) - dt.date.fromisoformat(e["start"][:10])).days) <= 3
                         and _long_words(p) & _long_words(e)):
                     twin = p
@@ -586,14 +588,19 @@ EXTRA_SOURCES = [
     ("GCAL", "Google Calendar feeds", "https://sites.google.com/view/ubtecoseminars/home",
      "gcal", "Google Calendar feeds"),
     ("CREI", "CREI events", "https://crei.cat/conferences/", "crei", "CREI events"),
-    ("UB-MISC", "UB department and group pages", "https://sites.google.com/view/ubmacro",
-     "ub_misc", "UB department and group pages"),
+    ("UB-MACRO", "UB macro workshop", "https://sites.google.com/view/ubmacro",
+     "ub_misc:collect_macro_source", "UB macro workshop"),
+    ("UB-DEPT", "UB department pages", "https://web.ub.edu/en/web/departament-matematica-economica/seminari-de-matem%C3%A0tica",
+     "ub_misc:collect_dept", "UB department pages"),
     ("UAB-UHE", "UAB Economic History seminars", "https://www.uab.cat/en/economics-economic-history/uhe/research/seminars",
      "uab_history", "UAB Economic History seminars"),
     ("UPF-STATS", "UPF Statistics seminars", "https://www.upf.edu/web/statistics-group/seminars",
      "upf_stats", "UPF Statistics seminars"),
 ]
 SECONDARY = {"IEB events"} | {s[4] for s in EXTRA_SOURCES}  # dropped when another source already lists them
+# Sites that refuse GitHub's servers. Still tried every day; when they fail, their last good events stay
+# up as usual, but the failure is not reported as an outage (no header warning, no failure email).
+BLOCKS_GITHUB = {"UB-DEPT"}
 
 # one line per source for the page's Sources section
 ABOUT = {
@@ -605,7 +612,8 @@ ABOUT = {
     "UAB-AE": "UAB Department of Applied Economics: departmental seminar, applied lunch seminar and job-market talks.",
     "GCAL": "Public calendars of the UB Economic Theory group, the UAB Department of Business and the Bellaterra Applied Working Group.",
     "CREI": "CREI Lectures in Macroeconomics and CREI conferences.",
-    "UB-MISC": "UB macro workshop and the actuarial and financial mathematics seminar.",
+    "UB-MACRO": "The annual Xavier Raurich UB Macro Workshop.",
+    "UB-DEPT": "The financial and actuarial mathematics seminar and the Workshop on Pensions and Insurance.",
     "UAB-UHE": "UAB Economic History Unit research seminars.",
     "UPF-STATS": "UPF Statistics, Probability and Machine Learning group seminars.",
 }
@@ -619,11 +627,12 @@ def all_sources():
         sys.path.insert(0, str(HERE))
     out = list(SOURCES)
     for key, name, url, module, label in EXTRA_SOURCES:
+        module, _, func = module.partition(":")
         try:
             mod = importlib.import_module(f"sources.{module}")
         except ModuleNotFoundError:
             continue  # not written (e.g. a site with no scriptable listing)
-        out.append((key, name, url, mod.collect, label))
+        out.append((key, name, url, getattr(mod, func or "collect"), label))
     return out
 
 
@@ -677,7 +686,7 @@ def main():
             events.extend(kept)
             sources.append({"key": key, "name": name, "url": url, "count": len(kept), "ok": False,
                             "last_ok": before.get("last_ok"), "error": error, "extra": before.get("extra"),
-                            "about": ABOUT.get(key, "")})
+                            "about": ABOUT.get(key, ""), "quiet": key in BLOCKS_GITHUB})
             print(f"{name}: FAILED ({error}); kept {len(kept)} events from {before.get('last_ok')}",
                   file=sys.stderr)
 

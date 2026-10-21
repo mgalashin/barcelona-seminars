@@ -200,11 +200,30 @@ def collect_pensions():
 
 # ----------------------------------------------------------------
 
-def collect(start, end):
+def _window(events, start, end, source):
     out, seen = [], set()
-    for ev in collect_macro() + collect_mat() + collect_pensions():
+    for ev in events:
         key = (ev["series"], ev["start"], ev["talks"][0]["speaker"] if ev["talks"] else "")
         if start <= ev["start"][:10] <= end and key not in seen:
             seen.add(key)
-            out.append(ev)
+            out.append(dict(ev, source=source))
     return out
+
+
+# Two separate sources, so one failing does not take the other down: web.ub.edu refuses
+# GitHub's servers (HTTP 403) while the Google Site does not.
+MACRO_SOURCE = "UB macro workshop"
+DEPT_SOURCE = "UB department pages"
+
+
+def collect_macro_source(start, end):
+    return _window(collect_macro(), start, end, MACRO_SOURCE)
+
+
+def collect_dept(start, end):
+    return _window(collect_mat() + collect_pensions(), start, end, DEPT_SOURCE)
+
+
+def collect(start, end):
+    """Everything at once (handy for testing)."""
+    return collect_macro_source(start, end) + collect_dept(start, end)
