@@ -120,27 +120,44 @@ button, input { font: inherit; color: inherit; }
   .pavement-band { height: 56px; background-size: 56px 56px; }
 }
 
-/* Field tiles: small blocks with a coloured façade; the main filter */
-.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
-@media (max-width: 900px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 600px) { .tile { padding: 14px 10px 10px; } .tile .host { display: none; } .tile .name { font-size: 15.5px; } }
+/* Field tiles: square chamfered blocks, a street of illes; the main filter.
+   Each tile is a size container so its content adapts: description when large, short name when tiny. */
+.tiles { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 1000px) { .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .tiles { gap: 8px; } }
 .tile {
-  --x: 12px; --c: var(--ink-3);
-  text-align: left; cursor: pointer; min-width: 0; border: 0;
+  --x: 12%; --c: var(--ink-3);
+  container-type: inline-size;
+  aspect-ratio: 1; min-width: 0; border: 0; cursor: pointer; text-align: left; overflow: hidden;
   background: linear-gradient(var(--c), var(--c)) top / 100% 6px no-repeat, var(--block);
-  padding: 18px var(--s-3) var(--s-3); display: grid; gap: 2px;
+  padding: 13% 10% 9%;
+  display: flex; flex-direction: column; gap: 3px;
   transition: opacity .15s, filter .15s;
 }
 .tile[aria-pressed="false"] { opacity: .45; filter: grayscale(1); }
 .tile[aria-pressed="false"]:hover { opacity: .7; }
 .tile:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
-.tile .name { font-weight: 800; font-stretch: 112%; font-size: 17px; line-height: 1.15; letter-spacing: .01em; text-wrap: balance; }
+.tile .name { font-weight: 800; font-stretch: 108%; font-size: clamp(12.5px, 12.5cqi, 17px); line-height: 1.15; letter-spacing: .005em; text-wrap: balance; }
+.tile .short, .tile .host, .tile .next { display: none; }
 .tile .host { font-size: 12px; color: var(--ink-3); line-height: 1.35; }
-.tile .nums { margin-top: var(--s-2); display: flex; align-items: baseline; gap: var(--s-2); flex-wrap: wrap; }
-.tile .big { font: 500 24px/1 var(--f-mono); font-variant-numeric: tabular-nums; }
+.tile .nums { margin-top: auto; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.tile .big { font: 500 clamp(20px, 24cqi, 34px)/1 var(--f-mono); font-variant-numeric: tabular-nums; }
 .tile .small { font-size: 12px; color: var(--ink-3); }
-.tile .mix { font-size: 12px; color: var(--ink-2); margin-top: 2px; line-height: 1.35; font-variant-numeric: tabular-nums; }
+.tile .mix { font-size: 11.5px; color: var(--ink-2); line-height: 1.35; font-variant-numeric: tabular-nums; }
 .tile .mix b { font-weight: 700; color: var(--ink); }
+.tile .mi { white-space: nowrap; }
+.tile .next { font-size: 11.5px; color: var(--ink-2); line-height: 1.35; overflow: hidden; }
+.tile .next b { font-weight: 700; color: var(--ink); }
+@container (min-width: 150px) {
+  .tile .host, .tile .next { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+  .tile .next { -webkit-line-clamp: 2; margin-top: 4px; }
+}
+@container (min-width: 200px) { .tile .host { -webkit-line-clamp: 2; } }
+@container (max-width: 100px) {
+  .tile .full, .tile .mix, .tile .small { display: none; }
+  .tile .short { display: inline; }
+  .tile .name { font-size: 12px; }
+}
 .tiles-note { font-size: 12.5px; color: var(--ink-3); margin: var(--s-2) 0 0; }
 .coverage { font-size: 12.5px; color: var(--ink-2); margin: var(--s-1) 0 0; max-width: 90ch; }
 .coverage .warn { color: var(--warn); }
@@ -350,7 +367,7 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
     { key: "Finance", short: "Finance", c: "--f-finance", desc: "Corporate finance, banking, asset pricing" },
     { key: "Economic history", short: "History", c: "--f-history", desc: "Economic and long-run history" },
     { key: "Econometrics & statistics", short: "Metrics", c: "--f-metrics", desc: "Econometrics and statistics" },
-    { key: "Management", short: "Management", c: "--f-mgmt", desc: "Management and strategy" },
+    { key: "Management", short: "Management", tiny: "Mgmt", c: "--f-mgmt", desc: "Management and strategy" },
     { key: "Other", short: "Other", c: "--f-other", desc: "Lectures and events without one field" },
   ];
   const FIELD_KEYS = FIELDS.map(f => f.key);
@@ -454,10 +471,15 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
       const up = inField.filter(e => e._endDay >= TODAY);
       const where = INSTS.map(i => [i.key, up.filter(e => e.inst === i.key).length])
         .filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
-      const mix = where.length ? where.map(([k, n]) => `<b>${k}</b> ${n}`).join(" · ") : "Nothing scheduled yet";
-      return `<button type="button" class="tile xamfra" data-field="${esc(f.key)}" style="--c: var(${f.c})" aria-pressed="${S.fields.includes(f.key)}">
-        <span class="name">${esc(f.key)}</span><span class="host">${esc(f.desc)}</span>
-        <span class="nums"><span class="big">${up.length}</span><span class="small">upcoming · ${inField.length} this year</span></span>
+      const mix = where.length ? where.map(([k, n]) => `<span class="mi"><b>${k}</b> ${n}</span>`).join(" · ") : "Nothing scheduled yet";
+      // the field's next talk, wherever it is: the nudge to cross town
+      const nx = up.find(e => !e.canceled && e.talks.some(t => t.speaker && t.speaker !== "TBA"));
+      const nxt = nx ? `<span class="next">Next <b>${esc(dow(nx._day))} ${esc(dm(nx._day))}</b> · ${esc(nx.talks.find(t => t.speaker && t.speaker !== "TBA").speaker)} · ${esc(nx.inst)}</span>` : "";
+      return `<button type="button" class="tile xamfra" data-field="${esc(f.key)}" style="--c: var(${f.c})" aria-pressed="${S.fields.includes(f.key)}"
+          title="${esc(`${f.key}: ${f.desc}. ${up.length} upcoming, ${inField.length} this year.`)}" aria-label="${esc(f.key)}: ${up.length} upcoming">
+        <span class="name"><span class="full">${esc(f.key)}</span><span class="short">${esc(f.tiny || f.short)}</span></span>
+        <span class="host">${esc(f.desc)}</span>${nxt}
+        <span class="nums"><span class="big">${up.length}</span><span class="small">upcoming</span></span>
         <span class="mix">${mix}</span></button>`;
     }).join("");
   }
