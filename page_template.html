@@ -437,7 +437,9 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   const src = name => META.sources.find(s => s.name.startsWith(name)) || {};
 
   const collected = new Date(META.collected_at);
-  const calendarName = { BSE: "BSE calendar", UB: "UB site", IESE: "IESE page", Esade: "Esade page", IEB: "IEB site" };
+  const calendarName = { BSE: "BSE calendar", UB: "UB site", IESE: "IESE page", Esade: "Esade page", IEB: "IEB site",
+    "UAB-AE": "UAB applied economics page", GCAL: "A seminar calendar", CREI: "CREI site", "UB-MISC": "A UB department page",
+    "UAB-UHE": "UAB economic history page", "UPF-STATS": "UPF statistics page" };
   $("stamp").innerHTML = `Updated ${esc(dm(localDay(collected)))}, ${esc(timeFmt.format(collected))}` +
     META.sources.filter(s => !s.ok).map(s =>
       `<br><span class="warn">${esc(calendarName[s.key] || s.name)} unreachable · listings as of ${!s.last_ok ? "an earlier run" : localDay(new Date(s.last_ok)) === localDay(collected) ? esc(timeFmt.format(new Date(s.last_ok))) : esc(dm(localDay(new Date(s.last_ok))))}</span>`).join("");
@@ -584,19 +586,21 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   }
 
   function renderSources() {
+    // fallback text for data from older runs, which carried no "about" line
+    const esadeNote = !EVENTS.some(e => e.inst === "Esade") && esadeSrc.extra ? ` The latest seminar it lists was on ${longDate(esadeSrc.extra)}.` : "";
     const blurb = {
       "BSE": "UPF Economics and Business, CREI, UAB economics (Bellaterra series, MicroLab), IAE-CSIC and school-wide lectures.",
       "UB": "IEB, AQR-IREA, IPERG, Economic Theory, Game Theory, Economic History and the International Macro History Online Seminar, plus thesis defences.",
       "IESE": "Economics and finance seminars. Speakers and dates only, no paper titles.",
       "IEB": "The Institut d'Economia de Barcelona's own list: its work-in-progress (IWIP) seminars, workshops, colloquia and symposia. Its regular seminars are also on UB's list and appear once.",
-      "Esade": "Seminars of Esade's Group for Research in Economics and Finance." +
-        (!EVENTS.some(e => e.inst === "Esade") && esadeSrc.extra ? ` The latest seminar it lists was on ${longDate(esadeSrc.extra)}.` : ""),
+      "Esade": "Seminars of Esade's Group for Research in Economics and Finance." + esadeNote,
     };
     $("sources").innerHTML = META.sources.map(s => {
       const k = Object.keys(blurb).find(b => s.name.startsWith(b));
+      const about = s.about ? s.about + (s.key === "Esade" ? esadeNote : "") : blurb[k] || "";
       const ok = s.ok ? "" : ` <span class="tag warn">Unreachable</span>`;
       return `<li><span class="src-name">${esc(s.name)}</span><span class="src-count">${s.count} events</span>${ok}
-        <p>${esc(blurb[k] || "")}</p><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url.replace(/^https?:\/\//, ""))}</a></li>`;
+        <p>${esc(about)}</p><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url.replace(/^https?:\/\//, ""))}</a></li>`;
     }).join("");
     $("fine").textContent =
       `Refreshed every morning from the sources above; times are Barcelona time. ` +

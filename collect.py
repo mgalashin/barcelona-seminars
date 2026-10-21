@@ -576,7 +576,55 @@ SOURCES = [
     # after UB, so UB's own entries win and IEB only adds what UB's list lacks
     ("IEB", "IEB events", IEB_URL, collect_ieb, "IEB events"),
 ]
-SECONDARY = {"IEB events"}  # sources whose events are dropped when another source already lists them
+
+# Sources that each live in sources/<module>.py, all secondary: they mostly add series the main
+# listings above lack, and anything those listings already have is merged away.
+#   key, display name, url, module, the "source" label its events carry
+EXTRA_SOURCES = [
+    ("UAB-AE", "UAB Applied Economics seminars", "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
+     "uab_applied", "UAB Applied Economics seminars"),
+    ("GCAL", "Google Calendar feeds", "https://sites.google.com/view/ubtecoseminars/home",
+     "gcal", "Google Calendar feeds"),
+    ("CREI", "CREI events", "https://crei.cat/conferences/", "crei", "CREI events"),
+    ("UB-MISC", "UB department and group pages", "https://sites.google.com/view/ubmacro",
+     "ub_misc", "UB department and group pages"),
+    ("UAB-UHE", "UAB Economic History seminars", "https://www.uab.cat/en/economics-economic-history/uhe/research/seminars",
+     "uab_history", "UAB Economic History seminars"),
+    ("UPF-STATS", "UPF Statistics seminars", "https://www.upf.edu/web/statistics-group/seminars",
+     "upf_stats", "UPF Statistics seminars"),
+]
+SECONDARY = {"IEB events"} | {s[4] for s in EXTRA_SOURCES}  # dropped when another source already lists them
+
+# one line per source for the page's Sources section
+ABOUT = {
+    "BSE": "UPF Economics and Business, CREI, UAB economics (Bellaterra series, MicroLab), IAE-CSIC and school-wide lectures.",
+    "UB": "IEB, AQR-IREA, IPERG, Economic Theory, Game Theory, Economic History and the International Macro History Online Seminar, plus thesis defences.",
+    "IESE": "Economics and finance seminars. Speakers and dates only, no paper titles.",
+    "Esade": "Seminars of Esade's Group for Research in Economics and Finance.",
+    "IEB": "The Institut d'Economia de Barcelona's work-in-progress (IWIP) seminars, workshops, colloquia and symposia.",
+    "UAB-AE": "UAB Department of Applied Economics: departmental seminar, applied lunch seminar and job-market talks.",
+    "GCAL": "Public calendars of the UB Economic Theory group, the UAB Department of Business and the Bellaterra Applied Working Group.",
+    "CREI": "CREI Lectures in Macroeconomics and CREI conferences.",
+    "UB-MISC": "UB macro workshop and the actuarial and financial mathematics seminar.",
+    "UAB-UHE": "UAB Economic History Unit research seminars.",
+    "UPF-STATS": "UPF Statistics, Probability and Machine Learning group seminars.",
+}
+
+
+def all_sources():
+    """The built-in sources plus every extra module that exists. Modules import this file's helpers,
+    so they are loaded here, after those are defined."""
+    import importlib
+    if str(HERE) not in sys.path:
+        sys.path.insert(0, str(HERE))
+    out = list(SOURCES)
+    for key, name, url, module, label in EXTRA_SOURCES:
+        try:
+            mod = importlib.import_module(f"sources.{module}")
+        except ModuleNotFoundError:
+            continue  # not written (e.g. a site with no scriptable listing)
+        out.append((key, name, url, mod.collect, label))
+    return out
 
 
 def load_previous(start, end):
@@ -594,7 +642,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--year", type=int, help="first calendar year of the academic year (default: current)")
     ap.add_argument("--fail", action="append", default=[], metavar="KEY",
-                    help="pretend a source (BSE, UB, IESE, Esade, IEB) is down, to test the fallback")
+                    help="pretend a source (by key, e.g. UB or GCAL) is down, to test the fallback")
     args = ap.parse_args()
     now = dt.datetime.now(MAD).isoformat(timespec="minutes")
     today = dt.datetime.now(MAD).date()
@@ -604,7 +652,7 @@ def main():
     prev_events, prev_sources = load_previous(start, end)
     events, sources = [], []
 
-    for key, name, url, fn, label in SOURCES:
+    for key, name, url, fn, label in all_sources():
         before = prev_sources.get(key, {})
         error = None
         try:
@@ -622,13 +670,14 @@ def main():
         if error is None:
             events.extend(res)
             sources.append({"key": key, "name": name, "url": url, "count": len(res), "ok": True,
-                            "last_ok": now, "error": "", "extra": extra})
+                            "last_ok": now, "error": "", "extra": extra, "about": ABOUT.get(key, "")})
             print(f"{name}: {len(res)}", file=sys.stderr)
         else:
             kept = [e for e in prev_events if e.get("source") == label]
             events.extend(kept)
             sources.append({"key": key, "name": name, "url": url, "count": len(kept), "ok": False,
-                            "last_ok": before.get("last_ok"), "error": error, "extra": before.get("extra")})
+                            "last_ok": before.get("last_ok"), "error": error, "extra": before.get("extra"),
+                            "about": ABOUT.get(key, "")})
             print(f"{name}: FAILED ({error}); kept {len(kept)} events from {before.get('last_ok')}",
                   file=sys.stderr)
 
