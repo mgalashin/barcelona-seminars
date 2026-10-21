@@ -437,7 +437,7 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
   const src = name => META.sources.find(s => s.name.startsWith(name)) || {};
 
   const collected = new Date(META.collected_at);
-  const calendarName = { BSE: "BSE calendar", UB: "UB site", IESE: "IESE page", Esade: "Esade page" };
+  const calendarName = { BSE: "BSE calendar", UB: "UB site", IESE: "IESE page", Esade: "Esade page", IEB: "IEB site" };
   $("stamp").innerHTML = `Updated ${esc(dm(localDay(collected)))}, ${esc(timeFmt.format(collected))}` +
     META.sources.filter(s => !s.ok).map(s =>
       `<br><span class="warn">${esc(calendarName[s.key] || s.name)} unreachable · listings as of ${!s.last_ok ? "an earlier run" : localDay(new Date(s.last_ok)) === localDay(collected) ? esc(timeFmt.format(new Date(s.last_ok))) : esc(dm(localDay(new Date(s.last_ok))))}</span>`).join("");
@@ -494,7 +494,7 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
       ? `<div class="speaker">${hl(t.speaker)}${t.affil ? ` <span class="affil">(${hl(t.affil)})</span>` : ""}</div>`
       : `<div class="speaker"><span class="affil">Speaker to be announced</span></div>`;
     const tba = !t.title || /^(tba|tbc|tbd)$/i.test(t.title);
-    const title = tba ? (e.inst === "IESE" ? "" : `<div class="title tba">Title to be announced</div>`) : `<div class="title">${hl(t.title)}</div>`;
+    const title = tba ? (e.no_titles || e.inst === "IESE" ? "" : `<div class="title tba">Title to be announced</div>`) : `<div class="title">${hl(t.title)}</div>`;
     const co = t.note ? `<div class="coauth">${hl(t.note)}</div>` : "";
     return `<div class="talk">${spk}${title}${co}</div>`;
   }
@@ -588,6 +588,7 @@ mark { background: color-mix(in srgb, var(--accent) 24%, transparent); color: in
       "BSE": "UPF Economics and Business, CREI, UAB economics (Bellaterra series, MicroLab), IAE-CSIC and school-wide lectures.",
       "UB": "IEB, AQR-IREA, IPERG, Economic Theory, Game Theory, Economic History and the International Macro History Online Seminar, plus thesis defences.",
       "IESE": "Economics and finance seminars. Speakers and dates only, no paper titles.",
+      "IEB": "The Institut d'Economia de Barcelona's own list: its work-in-progress (IWIP) seminars, workshops, colloquia and symposia. Its regular seminars are also on UB's list and appear once.",
       "Esade": "Seminars of Esade's Group for Research in Economics and Finance." +
         (!EVENTS.some(e => e.inst === "Esade") && esadeSrc.extra ? ` The latest seminar it lists was on ${longDate(esadeSrc.extra)}.` : ""),
     };

@@ -24,6 +24,7 @@ import re
 import sys
 import time
 import urllib.error
+import unicodedata
 import urllib.request
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -418,6 +419,150 @@ def collect_esade(start, end):
     return out, latest
 
 
+# ---------------------------------------------------------------- IEB (UB)
+# IEB posts more than the UB School of Economics list carries: its work-in-progress (IWIP) series,
+# workshops, colloquia and symposia. Its regular seminars duplicate UB's list and are merged away.
+
+IEB_URL = "https://ieb.ub.edu/en/events/"
+IEB_CARD = re.compile(r'<div class="(?:grid-col )?dmach-grid-item[^"]*post_id_(\d+)[^"]*"[^>]*>')
+
+
+def parse_ieb_time(s):
+    m = re.search(r"(\d{1,2})(?:[.:h](\d{2}))?\s*h?(?:\s*-\s*(\d{1,2})(?:[.:h](\d{2}))?)?", s or "")
+    if not m:
+        return None, None
+    return (int(m.group(1)), int(m.group(2) or 0)), ((int(m.group(3)), int(m.group(4) or 0)) if m.group(3) else None)
+
+
+def collect_ieb(start, end):
+    cards = {}
+    for page in range(1, 12):
+        raw = get(IEB_URL if page == 1 else f"{IEB_URL}page/{page}/")
+        found = list(IEB_CARD.finditer(raw or ""))
+        if not found:
+            break
+        dates = []
+        for k, m in enumerate(found):
+            chunk = raw[m.start():found[k + 1].start() if k + 1 < len(found) else m.start() + 15000]
+            lines = [x for x in text_lines(chunk) if x.strip(" :")]
+            # the date is three lines: day, month name, year
+            for i in range(len(lines) - 2):
+                if re.fullmatch(r"\d{1,2}", lines[i]) and lines[i + 1].lower() in MONTHS and re.fullmatch(r"20\d\d", lines[i + 2]):
+                    day = dt.date(int(lines[i + 2]), MONTHS[lines[i + 1].lower()], int(lines[i]))
+                    dates.append(day.isoformat())
+                    link = re.search(r'href="(https://ieb\.ub\.edu/[^"]*events/[^"]+)"', chunk)
+                    cards.setdefault(m.group(1), (lines[:i], day, link.group(1) if link else ""))
+                    break
+        if dates and min(dates) < start:
+            break
+    out = []
+    for pid, (lines, day, link) in cards.items():
+        if not (start <= day.isoformat() <= end) or len(lines) < 2:
+            continue
+        cat, title, rest = lines[0], lines[1], lines[2:]
+        hora = next((k for k, x in enumerate(rest) if x.lower().startswith("hora")), None)
+        tstr, venue = "", ""
+        if hora is not None:
+            after = rest[hora].split(":", 1)[1].strip() if ":" in rest[hora] else ""
+            tstr = after or (rest[hora + 1] if hora + 1 < len(rest) else "")
+            venue_i = hora + (1 if after else 2)
+            venue = rest[venue_i] if venue_i < len(rest) else ""
+        elif rest:
+            venue = rest[0]
+        t0, t1 = parse_ieb_time(tstr)
+        iso = local_iso(day.year, day.month, day.day, *t0) if t0 else day.isoformat()
+        iso_end = local_iso(day.year, day.month, day.day, *t1) if t1 else None
+        title = re.sub(r"^SEMINAR:\s*", "", title)
+        catl = cat.lower()
+        talks, series, no_titles = [], title, False
+        if "seminar" in catl and "iwip" not in catl and "(" in title:
+            series = "IEB Seminar"
+        elif "iwip" in catl:
+            series, no_titles = "IEB IWIP Seminar", True
+        if series in ("IEB Seminar", "IEB IWIP Seminar"):
+            q = re.search(r"[“\"](.+?)[”\"]", title)
+            who = (title[:q.start()] if q else title).strip(" –-")
+            name, affil = split_affil(who)
+            talks = [{"speaker": name, "affil": affil, "title": q.group(1).strip() if q else "", "note": ""}]
+        if "workshop" in catl:
+            kind = "workshop"
+        elif "conference" in catl and "coloqui" in title.lower():
+            kind = "lecture"
+        elif "conference" in catl or "symposium" in catl:
+            kind = "conference"
+        elif series.startswith("IEB"):
+            kind = "seminar"
+        else:
+            kind = kind_of(title)
+        on_campus = bool(re.search(r"(?i)\broom\b|facultat d.economia|faculty of econom|seminar room", venue))
+        out.append({
+            "inst": "UB", "host": "Institut d'Economia de Barcelona (IEB)", "series": series, "kind": kind,
+            # IEB works on public, urban and energy economics: its events are applied unless the series says otherwise
+            "field": field_of(series) if series.startswith("IEB") else ("Other" if kind == "other" else "Applied & policy"),
+            "internal": bool(re.search(r"(?i)ph\.?d[- ]students?", title)),
+            "canceled": bool(re.search(r"(?i)cancel", title)),
+            "start": iso, "end": iso_end, "all_day": t0 is None,
+            "talks": talks, "location": venue, "campus": "Diagonal campus" if on_campus else "",
+            "notes": [], "mode": "", "no_titles": no_titles,
+            "url": link or f"https://ieb.ub.edu/?p={pid}", "source": "IEB events",
+        })
+    return out
+
+
+# ---------------------------------------------------------------- merging sources
+
+def _surnames(e):
+    out = set()
+    for t in e.get("talks", []):
+        for person in re.split(r",|&| and ", t.get("speaker") or ""):
+            words = re.findall(r"[^\W\d_]{3,}", person.lower())
+            if words:
+                out.add(words[-1])
+    return out
+
+
+def _long_words(e):
+    text = " ".join([e.get("series", "")] + [t.get("title", "") for t in e.get("talks", [])])
+    text = unicodedata.normalize("NFD", text.lower())
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    return {w for w in re.findall(r"[a-z]{8,}", text)}
+
+
+def merge_duplicates(events, secondary):
+    """Drop events from `secondary` sources that another source already lists (same day, and the same
+    speaker, or the same start time when neither names a speaker). A dropped duplicate's room fills
+    an empty location on the kept event."""
+    kept = [e for e in events if e["source"] not in secondary]
+    by_day = {}
+    for e in kept:
+        by_day.setdefault(e["start"][:10], []).append(e)
+    for e in events:
+        if e["source"] not in secondary:
+            continue
+        twin = None
+        for p in by_day.get(e["start"][:10], []):
+            same_person = _surnames(p) & _surnames(e)
+            same_slot = p["start"] == e["start"] and (not _surnames(p) or not _surnames(e))
+            if same_person or same_slot:
+                twin = p
+                break
+        if twin is None and not _surnames(e):
+            # the same speakerless event (a colloquium, say) listed a few days apart by two sources,
+            # in different languages: same time of day, same institution, a long word in common
+            for p in kept:
+                if (p["inst"] == e["inst"] and not _surnames(p) and p["start"][10:] == e["start"][10:]
+                        and abs((dt.date.fromisoformat(p["start"][:10]) - dt.date.fromisoformat(e["start"][:10])).days) <= 3
+                        and _long_words(p) & _long_words(e)):
+                    twin = p
+                    break
+        if twin is None:
+            kept.append(e)
+            by_day.setdefault(e["start"][:10], []).append(e)
+        elif not twin.get("location") and e.get("location"):
+            twin["location"] = e["location"]
+    return kept
+
+
 # ---------------------------------------------------------------- main
 
 SOURCES = [
@@ -428,7 +573,10 @@ SOURCES = [
      "UB School of Economics activities"),
     ("IESE", "IESE Research Seminars", IESE_URL, collect_iese, "IESE Research Seminars"),
     ("Esade", "Esade economics and finance events", ESADE_URL, collect_esade, "Esade GREF events"),
+    # after UB, so UB's own entries win and IEB only adds what UB's list lacks
+    ("IEB", "IEB events", IEB_URL, collect_ieb, "IEB events"),
 ]
+SECONDARY = {"IEB events"}  # sources whose events are dropped when another source already lists them
 
 
 def load_previous(start, end):
@@ -446,7 +594,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--year", type=int, help="first calendar year of the academic year (default: current)")
     ap.add_argument("--fail", action="append", default=[], metavar="KEY",
-                    help="pretend a source (BSE, UB, IESE, Esade) is down, to test the fallback")
+                    help="pretend a source (BSE, UB, IESE, Esade, IEB) is down, to test the fallback")
     args = ap.parse_args()
     now = dt.datetime.now(MAD).isoformat(timespec="minutes")
     today = dt.datetime.now(MAD).date()
@@ -484,12 +632,16 @@ def main():
             print(f"{name}: FAILED ({error}); kept {len(kept)} events from {before.get('last_ok')}",
                   file=sys.stderr)
 
+    raw_count = len(events)
+    events = merge_duplicates(events, SECONDARY)
+    print(f"merged {raw_count - len(events)} duplicate events", file=sys.stderr)
     campus = {"UPF": "Ciutadella campus", "UAB": "Bellaterra campus", "UB": "Diagonal campus",
               "IESE": "Pedralbes campus", "Esade": "Pedralbes campus"}
     events.sort(key=lambda e: (e["start"], e["inst"], e["series"]))
     for i, e in enumerate(events):
         e["id"] = i
-        e["campus"] = campus.get(e["inst"], "")
+        if "campus" not in e:  # a collector may set it, e.g. off-campus IEB venues get none
+            e["campus"] = campus.get(e["inst"], "")
     meta = {
         "collected_at": now,
         "window": [start, end],
