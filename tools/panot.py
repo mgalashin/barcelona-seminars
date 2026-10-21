@@ -28,14 +28,12 @@ def tile(groove, groove_op, joint, joint_op, hi, hi_op, shade_op):
     )
     return 'url("data:image/svg+xml,' + urllib.parse.quote(svg, safe="=:/ '") + '")'
 
-LIGHT = tile("#4a4337", .09, "#3a362f", .16, "#ffffff", .55, .05)
-LIGHT_STRONG = tile("#4a4337", .16, "#3a362f", .28, "#ffffff", .7, .09)
-DARK = tile("#000000", .26, "#000000", .5, "#ffffff", .03, .12)
-DARK_STRONG = tile("#000000", .34, "#000000", .6, "#ffffff", .05, .16)
+LIGHT = tile("#4a4337", .16, "#3a362f", .28, "#ffffff", .7, .09)
+DARK = tile("#000000", .34, "#000000", .6, "#ffffff", .05, .16)
 
 path = sys.argv[1] if len(sys.argv) > 1 else Path(__file__).resolve().parent.parent / 'page_template.html'
 h = open(path, encoding="utf-8").read()
+# one definition per theme block: light, dark (media query), dark (data-theme)
 it = iter([LIGHT, DARK, DARK]); h = re.sub(r'--panot: url\("[^"]*"\);', lambda m: f"--panot: {next(it)};", h)
-it = iter([LIGHT_STRONG, DARK_STRONG, DARK_STRONG]); h = re.sub(r'--panot-strong: url\("[^"]*"\);', lambda m: f"--panot-strong: {next(it)};", h)
 open(path, "w", encoding="utf-8").write(h)
-print("patched", h.count("--panot: url("), h.count("--panot-strong: url("), "tokens;", len(LIGHT), "chars per tile")
+print("patched", h.count("--panot: url("), "tile tokens")
