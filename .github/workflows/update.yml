@@ -1,0 +1,72 @@
+name: Refresh seminars
+
+on:
+  schedule:
+    - cron: "30 5 * * *"   # 05:30 UTC = 07:30 Barcelona in summer, 06:30 in winter
+  workflow_dispatch:        # "Run workflow" button in the Actions tab
+  push:                     # rebuild when the collector or the page design changes
+    branches: [main]
+    paths:
+      - collect.py
+      - page_template.html
+      - .github/workflows/update.yml
+
+permissions:
+  contents: write   # commit refreshed data back to the repo
+  pages: write      # publish to GitHub Pages
+  id-token: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Collect seminars and rebuild the page
+        run: python3 collect.py
+
+      # data/seminars.json is also tomorrow's fallback if a source is down
+      - name: Commit the new data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data docs
+          if git diff --staged --quiet; then
+            echo "Nothing changed."
+          else
+            git commit -m "Refresh seminars $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs
+      - id: deploy
+        uses: actions/deploy-pages@v5
+
+      # The page is already live with the fallback data; failing here sends the repo
+      # owner GitHub's usual "workflow failed" email so a broken source gets noticed.
+      - name: Report sources that could not be reached
+        run: |
+          python3 - <<'EOF'
+          import json, sys
+          meta = json.load(open("data/seminars.json"))["meta"]
+          for s in meta["sources"]:
+              print("OK  " if s["ok"] else "DOWN", s["name"], s["count"], s.get("error", ""))
+          bad = [s for s in meta["sources"] if not s["ok"]]
+          if bad:
+              sys.exit(f"{len(bad)} source(s) unreachable; their last good data was kept")
+          EOF

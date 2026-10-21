@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Barcelona Econ Seminars</title>
+<meta name="description" content="Economics seminars at UB, UPF, UAB, IESE and Esade in one agenda, refreshed every morning.">
+<meta property="og:title" content="Barcelona Econ Seminars">
+<meta property="og:description" content="Economics seminars at UB, UPF, UAB, IESE and Esade in one agenda, refreshed every morning.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='5' width='26' height='24' rx='4' fill='%230b6a6e'/%3E%3Crect x='3' y='5' width='26' height='7' rx='3' fill='%23083f42'/%3E%3Crect x='8' y='16' width='5' height='4' fill='%23fff'/%3E%3Crect x='15' y='16' width='5' height='4' fill='%23fff'/%3E%3Crect x='8' y='22' width='5' height='4' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one agenda column — masthead, institution tiles that double as filters, a sticky filter bar,
+   then weeks → days → seminar rows. Day labels sit in a left rail on wide screens and stack on phones. */
+:root {
+  --bg: #f1f3f2;
+  --surface: #fbfcfc;
+  --ink: #152120;
+  --ink-2: #4a5856;
+  --ink-3: #75817f;
+  --rule: #d8dfdd;
+  --rule-strong: #b9c4c1;
+  --accent: #0b6a6e;
+  --accent-soft: #dcecec;
+  --on-accent: #ffffff;
+  --warn: #9a3412;
+  --warn-soft: #f7e6dc;
+  --c-ub: #2c5ea8;
+  --c-upf: #b5313a;
+  --c-uab: #2b7d48;
+  --c-bse: #6a4bb0;
+  --c-iese: #a3640c;
+  --c-esade: #8b2c6c;
+  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Public Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px;
+  --radius: 6px;
+  --maxw: 1080px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1413; --surface: #151d1c; --ink: #e2eae8; --ink-2: #a7b4b1; --ink-3: #7b8885;
+    --rule: #26302f; --rule-strong: #3a4745; --accent: #55b9b9; --accent-soft: #173233; --on-accent: #06201f;
+    --warn: #f0a070; --warn-soft: #3a2418;
+    --c-ub: #86a9ee; --c-upf: #f07d82; --c-uab: #6fc48d; --c-bse: #ad94f0; --c-iese: #e6a852; --c-esade: #d985ba;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1413; --surface: #151d1c; --ink: #e2eae8; --ink-2: #a7b4b1; --ink-3: #7b8885;
+  --rule: #26302f; --rule-strong: #3a4745; --accent: #55b9b9; --accent-soft: #173233; --on-accent: #06201f;
+  --warn: #f0a070; --warn-soft: #3a2418;
+  --c-ub: #86a9ee; --c-upf: #f07d82; --c-uab: #6fc48d; --c-bse: #ad94f0; --c-iese: #e6a852; --c-esade: #d985ba;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); -webkit-text-size-adjust: 100%; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.5 var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--bg);
+}
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: inherit; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+/* Masthead */
+.masthead { padding-block: var(--s-7) var(--s-5); display: grid; gap: var(--s-4); grid-template-columns: 1fr auto; align-items: end; }
+.masthead h1 {
+  font: 700 clamp(32px, 5.4vw, 52px)/1.02 var(--f-display);
+  letter-spacing: -0.02em; margin: 0; text-wrap: balance;
+}
+.masthead p { margin: var(--s-3) 0 0; color: var(--ink-2); max-width: 60ch; }
+.stamp { text-align: right; font-size: 12px; color: var(--ink-3); line-height: 1.6; }
+.stamp strong { display: block; color: var(--ink-2); font-weight: 500; }
+@media (max-width: 640px) {
+  .masthead { grid-template-columns: 1fr; padding-block: var(--s-6) var(--s-4); }
+  .stamp { text-align: left; }
+}
+
+/* Institution tiles (also the institution filter) */
+.tiles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--s-2); }
+@media (max-width: 900px) { .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 460px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tile {
+  --c: var(--ink-3);
+  text-align: left; cursor: pointer; min-width: 0;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: var(--s-3); display: grid; gap: 2px; position: relative;
+  transition: border-color .15s, opacity .15s;
+}
+.tile::before { content: ""; position: absolute; left: -1px; right: -1px; top: -1px; height: 3px; background: var(--c); border-radius: var(--radius) var(--radius) 0 0; }
+.tile[aria-pressed="false"] { opacity: .5; }
+.tile[aria-pressed="false"]::before { background: var(--rule-strong); }
+.tile:hover { border-color: var(--rule-strong); }
+.tile .name { font: 700 17px/1.2 var(--f-display); letter-spacing: -0.01em; }
+.tile .host { font-size: 12px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile .nums { margin-top: var(--s-2); display: flex; align-items: baseline; gap: var(--s-2); flex-wrap: wrap; }
+.tile .big { font: 500 22px/1 var(--f-mono); font-variant-numeric: tabular-nums; }
+.tile .small { font-size: 12px; color: var(--ink-3); }
+.tile .gap { font-size: 12px; color: var(--warn); margin-top: var(--s-1); line-height: 1.35; }
+.tiles-note { font-size: 12px; color: var(--ink-3); margin: var(--s-2) 0 0; }
+
+/* Sticky filter bar */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rule);
+  margin-top: var(--s-5);
+}
+.bar .wrap { padding-block: var(--s-3); display: grid; gap: var(--s-2); }
+.row { display: flex; gap: var(--s-2); align-items: center; flex-wrap: wrap; min-width: 0; }
+.seg { display: inline-flex; border: 1px solid var(--rule-strong); border-radius: var(--radius); overflow: hidden; }
+.seg button { border: 0; background: transparent; padding: 6px 12px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.seg button + button { border-left: 1px solid var(--rule-strong); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.search { flex: 1 1 220px; min-width: 0; position: relative; }
+.search input {
+  width: 100%; padding: 6px 10px 6px 30px; border: 1px solid var(--rule-strong); border-radius: var(--radius);
+  background: var(--surface); font-size: 14px;
+}
+.search svg { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: var(--ink-3); }
+.chips { display: flex; gap: 6px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; min-width: 0; padding-bottom: 1px; }
+.chips::-webkit-scrollbar { display: none; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); font-weight: 600; flex: none; min-width: 44px; }
+.chip {
+  flex: none; border: 1px solid var(--rule-strong); background: transparent; border-radius: 999px;
+  padding: 3px 10px; font-size: 13px; cursor: pointer; color: var(--ink-2); white-space: nowrap;
+}
+.chip .n { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); margin-left: 4px; }
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
+.chip[aria-pressed="true"] .n { color: var(--accent); }
+.switch { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-2); cursor: pointer; flex: none; }
+.switch input { accent-color: var(--accent); width: 15px; height: 15px; margin: 0; }
+.reset { border: 0; background: none; color: var(--accent); font-size: 13px; cursor: pointer; padding: 3px 4px; text-decoration: underline; text-underline-offset: 2px; }
+.status { font-size: 12px; color: var(--ink-3); margin-left: auto; }
+
+/* Agenda */
+main { padding-block: var(--s-5) var(--s-7); }
+.week { margin-bottom: var(--s-6); }
+.week-head { display: flex; align-items: baseline; gap: var(--s-3); border-bottom: 2px solid var(--ink); padding-bottom: var(--s-2); flex-wrap: wrap; }
+.week-head h2 { font: 700 21px/1.2 var(--f-display); margin: 0; letter-spacing: -0.01em; }
+.week-head .count { font-size: 13px; color: var(--ink-3); }
+.week-head .copy {
+  margin-left: auto; border: 1px solid var(--rule-strong); background: var(--surface); border-radius: var(--radius);
+  padding: 3px 10px; font-size: 12px; cursor: pointer; color: var(--ink-2);
+}
+.week-head .copy:hover { border-color: var(--accent); color: var(--ink); }
+.day { display: grid; grid-template-columns: 112px minmax(0, 1fr); border-bottom: 1px solid var(--rule); }
+.day-label { padding: var(--s-4) var(--s-3) var(--s-4) 0; }
+.day-label .dow { font: 700 18px/1 var(--f-display); }
+.day-label .dm { font-size: 13px; color: var(--ink-3); margin-top: 4px; }
+.today-badge { display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; background: var(--accent); color: var(--on-accent); padding: 1px 6px; border-radius: 3px; }
+.events { min-width: 0; }
+@media (max-width: 640px) {
+  .day { grid-template-columns: 1fr; }
+  .day-label { padding: var(--s-3) 0 0; display: flex; gap: var(--s-2); align-items: baseline; }
+  .day-label .dm { margin-top: 0; }
+  .today-badge { margin-top: 0; }
+}
+
+.ev { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: var(--s-3); padding: var(--s-4) 0; border-top: 1px solid var(--rule); }
+.events .ev:first-child { border-top: 0; }
+.ev .time { font: 500 14px/1.4 var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ink); padding-top: 1px; }
+.ev .time small { display: block; color: var(--ink-3); font-size: 11px; }
+.ev .body { min-width: 0; display: grid; gap: 3px; }
+.ev .top { display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; font-size: 12.5px; color: var(--ink-2); }
+.inst { --c: var(--ink-3); display: inline-flex; align-items: center; gap: 5px; font-weight: 600; color: var(--ink); }
+.inst::before { content: ""; width: 9px; height: 9px; border-radius: 2px; background: var(--c); flex: none; }
+.ev .series { font-weight: 500; }
+.ev .field { color: var(--ink-3); }
+.ev .field::before { content: "·"; margin-right: var(--s-2); }
+.tag { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 0 5px; border-radius: 3px; border: 1px solid var(--rule-strong); color: var(--ink-2); }
+.tag.warn { border-color: transparent; background: var(--warn-soft); color: var(--warn); }
+.talk { display: grid; gap: 1px; }
+.talk + .talk { margin-top: var(--s-2); padding-top: var(--s-2); border-top: 1px dashed var(--rule); }
+.speaker { font-weight: 600; font-size: 15.5px; }
+.speaker .affil { font-weight: 400; color: var(--ink-2); }
+.title { font-size: 15px; color: var(--ink); text-wrap: pretty; }
+.title.tba { color: var(--ink-3); font-style: italic; }
+.coauth { color: var(--ink-3); font-size: 13.5px; }
+.meta { font-size: 12.5px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 0 var(--s-3); margin-top: 2px; }
+.ev.canceled .speaker, .ev.canceled .title { text-decoration: line-through; color: var(--ink-3); }
+.ev .go { align-self: start; font-size: 12.5px; color: var(--accent); text-decoration: none; white-space: nowrap; padding-top: 1px; }
+.ev .go:hover { text-decoration: underline; }
+@media (max-width: 640px) {
+  .ev { grid-template-columns: 48px minmax(0, 1fr); }
+  .ev .go { grid-column: 2; }
+}
+mark { background: color-mix(in srgb, var(--accent) 22%, transparent); color: inherit; border-radius: 2px; padding: 0 1px; }
+
+.empty { padding: var(--s-7) 0; text-align: center; color: var(--ink-2); }
+.empty h2 { font: 700 22px/1.2 var(--f-display); margin: 0 0 var(--s-2); color: var(--ink); }
+
+/* Sources */
+.sources { border-top: 2px solid var(--ink); padding-block: var(--s-5) var(--s-7); display: grid; gap: var(--s-4); }
+.sources h2 { font: 700 21px/1.2 var(--f-display); margin: 0; }
+.src-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-6); margin: 0; padding: 0; list-style: none; }
+@media (max-width: 720px) { .src-list { grid-template-columns: 1fr; } }
+.src-list li { min-width: 0; }
+.src-list .src-name { font-weight: 600; }
+.src-list .src-count { font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); margin-left: 6px; }
+.src-list p { margin: 4px 0 0; color: var(--ink-2); font-size: 13.5px; max-width: 62ch; }
+.src-list a { font-size: 12.5px; color: var(--accent); word-break: break-all; }
+.fine { font-size: 12.5px; color: var(--ink-3); max-width: 70ch; margin: 0; }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+  background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: var(--radius); font-size: 13px; z-index: 20;
+}
+.copybox { width: 100%; min-height: 140px; margin-top: var(--s-3); font: 12px/1.5 var(--f-mono); background: var(--surface); border: 1px solid var(--rule-strong); border-radius: var(--radius); padding: var(--s-2); color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="wrap masthead">
+  <div>
+    <h1>Barcelona Econ Seminars</h1>
+    <p id="lede">Every published economics seminar at UB, UPF, UAB, IESE and Esade, in one agenda, refreshed every morning. UPF and UAB come through the Barcelona School of Economics calendar, which also carries CREI and IAE-CSIC.</p>
+  </div>
+  <div class="stamp" id="stamp"></div>
+</header>
+
+<section class="wrap" aria-label="Institutions">
+  <div class="tiles" id="tiles"></div>
+  <p class="tiles-note">Tap an institution to show only it; tap others to add them back. Counts cover the whole academic year.</p>
+</section>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="row">
+      <div class="seg" role="group" aria-label="Time range" id="view">
+        <button type="button" data-view="upcoming" aria-pressed="true">Upcoming</button>
+        <button type="button" data-view="past" aria-pressed="false">Past</button>
+        <button type="button" data-view="all" aria-pressed="false">Whole year</button>
+      </div>
+      <label class="search" for="q">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <input id="q" type="search" placeholder="Search speaker, title, series, affiliation" autocomplete="off">
+      </label>
+    </div>
+    <div class="row"><span class="label">Field</span><div class="chips" id="fields"></div></div>
+    <div class="row"><span class="label">Type</span><div class="chips" id="kinds"></div>
+      <label class="switch" for="internal"><input type="checkbox" id="internal"> Internal &amp; PhD sessions</label>
+      <button type="button" class="reset" id="reset" hidden>Reset filters</button>
+      <span class="status" id="status" aria-live="polite"></span>
+    </div>
+  </div>
+</div>
+
+<main class="wrap" id="list"></main>
+
+<section class="wrap sources" aria-labelledby="src-h">
+  <h2 id="src-h">Sources and coverage</h2>
+  <ul class="src-list" id="sources"></ul>
+  <p class="fine" id="fine"></p>
+</section>
+
+<div class="toast" id="toast" hidden></div>
+
+<script id="data" type="application/json">__SEMINARS_DATA__</script>
+<script>
+(function () {
+  "use strict";
+  const DATA = JSON.parse(document.getElementById("data").textContent);
+  const EVENTS = DATA.events;
+  const META = DATA.meta;
+  const TZ = "Europe/Madrid";
+
+  const INSTS = [
+    { key: "UB", name: "UB", host: "School of Economics", c: "--c-ub" },
+    { key: "UPF", name: "UPF", host: "Economics · CREI", c: "--c-upf" },
+    { key: "UAB", name: "UAB", host: "UFAE · IAE-CSIC", c: "--c-uab" },
+    { key: "BSE", name: "BSE", host: "School-wide events", c: "--c-bse" },
+    { key: "IESE", name: "IESE", host: "Economics & Finance", c: "--c-iese" },
+    { key: "Esade", name: "Esade", host: "GREF seminars", c: "--c-esade" },
+  ];
+  const INST_C = Object.fromEntries(INSTS.map(i => [i.key, i.c]));
+  const FIELDS = ["Applied & policy", "Macro & international", "Micro & theory", "Finance", "Economic history",
+                  "Econometrics & statistics", "Management", "Other"];
+  const KINDS = [
+    { key: "seminar", name: "Seminars" }, { key: "lecture", name: "Lectures" },
+    { key: "workshop", name: "Workshops" }, { key: "conference", name: "Conferences" },
+    { key: "defence", name: "Thesis defences" }, { key: "community", name: "Community" },
+    { key: "other", name: "Other" },
+  ];
+  const DEFAULT_KINDS = ["seminar", "lecture", "workshop", "conference"];
+
+  // ---- dates (all display in Barcelona time)
+  const dayFmt = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" });
+  const timeFmt = new Intl.DateTimeFormat("en-GB", { timeZone: TZ, hour: "2-digit", minute: "2-digit", hour12: false });
+  const localDay = d => dayFmt.format(d);              // 'YYYY-MM-DD'
+  const TODAY = localDay(new Date());
+  for (const e of EVENTS) {
+    e._day = e.start.slice(0, 10);
+    e._endDay = e.end ? localDay(new Date(e.end)) : e._day;
+    e._time = e.all_day ? "" : timeFmt.format(new Date(e.start));
+    e._endTime = (!e.all_day && e.end) ? timeFmt.format(new Date(e.end)) : "";
+    e._hay = [e.inst, e.host, e.series, e.field, e.location, ...(e.notes || []),
+              ...e.talks.flatMap(t => [t.speaker, t.affil, t.title, t.note])].join(" ").toLowerCase()
+              .normalize("NFD").replace(/[̀-ͯ]/g, "");
+  }
+  const utc = s => { const [y, m, d] = s.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+  const iso = d => d.toISOString().slice(0, 10);
+  const mondayOf = s => { const d = utc(s); const k = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - k); return iso(d); };
+  const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const MONTH = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const dm = s => { const d = utc(s); return d.getUTCDate() + " " + MON[d.getUTCMonth()]; };
+  const dow = s => DOW[utc(s).getUTCDay()];
+  const longDate = s => { const d = utc(s); return d.getUTCDate() + " " + MONTH[d.getUTCMonth()] + " " + d.getUTCFullYear(); };
+
+  // ---- state
+  const KEY = "bcn-seminars-v1";
+  const fresh = () => ({ view: "upcoming", q: "", insts: INSTS.map(i => i.key), fields: FIELDS.slice(),
+                         kinds: DEFAULT_KINDS.slice(), internal: false });
+  let S = fresh();
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (saved && typeof saved === "object") S = Object.assign(S, saved, { q: "" });
+  } catch (_) { /* storage unavailable */ }
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(Object.assign({}, S, { q: "" }))); } catch (_) {} };
+
+  const inView = e => S.view === "all" ? true : S.view === "upcoming" ? e._endDay >= TODAY : e._endDay < TODAY;
+  const matchQ = e => {
+    if (!S.q) return true;
+    const terms = S.q.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").split(/\s+/).filter(Boolean);
+    return terms.every(t => e._hay.includes(t));
+  };
+  const pass = (e, skip) =>
+    inView(e) && matchQ(e) &&
+    (skip === "inst" || S.insts.includes(e.inst)) &&
+    (skip === "field" || S.fields.includes(e.field)) &&
+    (skip === "kind" || S.kinds.includes(e.kind)) &&
+    (skip === "internal" || S.internal || !e.internal);
+
+  // solo-first toggling: from "all selected", a click selects only that item
+  function toggle(list, all, key) {
+    if (list.length === all.length) return [key];
+    const next = list.includes(key) ? list.filter(k => k !== key) : list.concat(key);
+    return next.length ? next : all.slice();
+  }
+
+  // ---- static pieces
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const src = name => META.sources.find(s => s.name.startsWith(name)) || {};
+
+  const collected = new Date(META.collected_at);
+  const whenStr = d => `${longDate(localDay(d))}, ${timeFmt.format(d)}`;
+  const staleSrcs = META.sources.filter(s => !s.ok);
+  $("stamp").innerHTML =
+    `<strong>Updated daily · last refreshed ${esc(whenStr(collected))}</strong>` +
+    `${EVENTS.length} events · academic year ${esc(META.academic_year)}<br>Times are Barcelona time` +
+    (staleSrcs.length ? `<br><span style="color: var(--warn)">${staleSrcs.length} source${staleSrcs.length === 1 ? "" : "s"} could not be reached today</span>` : "");
+
+  const esadeSrc = src("Esade"), ieseSrc = src("IESE");
+  const ieseN = EVENTS.filter(e => e.inst === "IESE").length;
+  const GAPS = {
+    Esade: esadeSrc.extra ? `Nothing posted since ${dm(esadeSrc.extra)} ${esadeSrc.extra.slice(0, 4)}` : "No seminars posted",
+    IESE: `Only ${ieseN} date${ieseN === 1 ? "" : "s"} published, no titles`,
+  };
+  // institutions whose source failed today: say which day's data they show
+  const INST_SRC = { UB: "UB", UPF: "BSE", UAB: "BSE", BSE: "BSE", IESE: "IESE", Esade: "Esade" };
+  const staleNote = k => {
+    const s = META.sources.find(x => x.key === INST_SRC[k]);
+    if (!s || s.ok) return "";
+    return s.last_ok ? `Source down today; showing data from ${dm(localDay(new Date(s.last_ok)))}` : "Source down today";
+  };
+
+  function renderTiles() {
+    const yearCount = k => EVENTS.filter(e => e.inst === k && (S.internal || !e.internal)).length;
+    const upCount = k => EVENTS.filter(e => e.inst === k && e._endDay >= TODAY && (S.internal || !e.internal)).length;
+    $("tiles").innerHTML = INSTS.map(i => {
+      const y = yearCount(i.key), u = upCount(i.key);
+      const stale = staleNote(i.key);
+      const gap = stale ? `<span class="gap">${esc(stale)}</span>`
+        : (GAPS[i.key] && (i.key === "Esade" ? y === 0 : y <= 5)) ? `<span class="gap">${esc(GAPS[i.key])}</span>` : "";
+      return `<button type="button" class="tile" data-inst="${i.key}" style="--c: var(${i.c})" aria-pressed="${S.insts.includes(i.key)}">
+        <span class="name">${i.name}</span><span class="host">${esc(i.host)}</span>
+        <span class="nums"><span class="big">${u}</span><span class="small">upcoming · ${y} this year</span></span>${gap}</button>`;
+    }).join("");
+  }
+
+  function renderChips() {
+    const count = (dim, val) => EVENTS.filter(e => pass(e, dim) && (dim === "field" ? e.field === val : e.kind === val)).length;
+    $("fields").innerHTML = FIELDS.map(f =>
+      `<button type="button" class="chip" data-field="${esc(f)}" aria-pressed="${S.fields.includes(f)}">${esc(f)}<span class="n">${count("field", f)}</span></button>`).join("");
+    $("kinds").innerHTML = KINDS.map(k =>
+      `<button type="button" class="chip" data-kind="${k.key}" aria-pressed="${S.kinds.includes(k.key)}">${k.name}<span class="n">${count("kind", k.key)}</span></button>`).join("");
+    $("internal").checked = S.internal;
+    document.querySelectorAll("#view button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === S.view)));
+    const def = fresh();
+    const dirty = S.insts.length !== def.insts.length || S.fields.length !== def.fields.length ||
+      S.kinds.slice().sort().join() !== def.kinds.slice().sort().join() || S.internal || S.q;
+    $("reset").hidden = !dirty;
+  }
+
+  // ---- highlighting
+  function hl(text) {
+    const t = esc(text);
+    if (!S.q) return t;
+    const terms = S.q.split(/\s+/).filter(w => w.length > 1).map(w => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+    if (!terms.length) return t;
+    return t.replace(new RegExp("(" + terms.join("|") + ")", "gi"), "<mark>$1</mark>");
+  }
+
+  function talkHTML(t) {
+    const spk = t.speaker && t.speaker !== "TBA"
+      ? `<div class="speaker">${hl(t.speaker)}${t.affil ? ` <span class="affil">(${hl(t.affil)})</span>` : ""}</div>`
+      : `<div class="speaker"><span class="affil">Speaker to be announced</span></div>`;
+    const tba = !t.title || /^(tba|tbc|tbd)$/i.test(t.title);
+    const title = tba ? `<div class="title tba">Title to be announced</div>` : `<div class="title">${hl(t.title)}</div>`;
+    const co = t.note ? `<div class="coauth">${hl(t.note)}</div>` : "";
+    return `<div class="talk">${spk}${title}${co}</div>`;
+  }
+
+  function evHTML(e) {
+    const talks = e.talks.filter(t => t.speaker || t.title);
+    const notes = (e.notes || []).filter(n => !/^(https?:|register|program here)/i.test(n));
+    let body = talks.map(talkHTML).join("");
+    if (!talks.length) body = `<div class="title">${notes.length ? hl(notes.join(" ")) : "Details on the event page"}</div>`;
+    const tags = [];
+    if (e.canceled) tags.push(`<span class="tag warn">Cancelled</span>`);
+    if (e.internal) tags.push(`<span class="tag">Internal</span>`);
+    if (/^(online|hybrid)$/i.test(e.mode || "")) tags.push(`<span class="tag">${esc(e.mode)}</span>`);
+    if (e.kind !== "seminar") tags.push(`<span class="tag">${esc((KINDS.find(k => k.key === e.kind) || {}).name || e.kind).replace(/s$/, "")}</span>`);
+    const meta = [];
+    if (e.location) meta.push(esc(e.location));
+    if (e.campus && !(e.location || "").toLowerCase().includes(e.campus.split(" ")[0].toLowerCase())) meta.push(esc(e.campus));
+    if (talks.length) notes.forEach(n => meta.push(hl(n)));
+    const time = e.all_day ? `<span class="time">All day</span>`
+      : `<span class="time">${e._time}${e._endTime && e._endDay === e._day ? `<small>–${e._endTime}</small>` : ""}</span>`;
+    const host = e.host && e.host !== e.series ? ` title="${esc(e.host)}"` : "";
+    return `<article class="ev${e.canceled ? " canceled" : ""}">
+      ${time}
+      <div class="body">
+        <div class="top"><span class="inst" style="--c: var(${INST_C[e.inst]})"${host}>${esc(e.inst)}</span>
+          <span class="series">${hl(e.series)}</span><span class="field">${esc(e.field)}</span>${tags.join("")}</div>
+        ${body}
+        ${meta.length ? `<div class="meta">${meta.map(m => `<span>${m}</span>`).join("")}</div>` : ""}
+      </div>
+      <a class="go" href="${esc(e.url)}" target="_blank" rel="noopener">Details ↗</a>
+    </article>`;
+  }
+
+  let WEEKS = [];
+  function renderList() {
+    const rows = EVENTS.filter(e => pass(e));
+    if (S.view === "past") rows.reverse();
+    const weeks = new Map();
+    for (const e of rows) {
+      const w = mondayOf(e._day);
+      if (!weeks.has(w)) weeks.set(w, new Map());
+      const days = weeks.get(w);
+      if (!days.has(e._day)) days.set(e._day, []);
+      days.get(e._day).push(e);
+    }
+    WEEKS = [...weeks.entries()];
+    const hidden = EVENTS.filter(e => inView(e) && !pass(e)).length;
+    $("status").textContent = `${rows.length} shown` + (hidden ? ` · ${hidden} filtered out` : "");
+    if (!rows.length) {
+      $("list").innerHTML = `<div class="empty"><h2>No events match these filters</h2>
+        <p>Try another field or type, or include internal sessions.</p>
+        <button type="button" class="reset" data-reset>Reset filters</button></div>`;
+      return;
+    }
+    const thisMon = mondayOf(TODAY);
+    $("list").innerHTML = WEEKS.map(([w, days], wi) => {
+      const n = [...days.values()].reduce((a, d) => a + d.length, 0);
+      const label = w === thisMon ? "This week" : (S.view !== "past" && iso(new Date(utc(thisMon).getTime() + 7 * 864e5)) === w ? "Next week" : "Week of " + dm(w));
+      return `<section class="week" aria-label="${esc(label)}">
+        <div class="week-head"><h2>${esc(label)}</h2><span class="count">${w === thisMon || label === "Next week" ? "from " + dm(w) + " · " : ""}${n} event${n === 1 ? "" : "s"}</span>
+          <button type="button" class="copy" data-week="${wi}">Copy as text</button></div>
+        ${[...days.entries()].map(([d, evs]) => `<div class="day">
+            <div class="day-label"><div class="dow">${dow(d)}</div><div class="dm">${dm(d)}</div>${d === TODAY ? `<span class="today-badge">Today</span>` : ""}</div>
+            <div class="events">${evs.map(evHTML).join("")}</div></div>`).join("")}
+      </section>`;
+    }).join("");
+  }
+
+  function renderSources() {
+    const blurb = {
+      "BSE": "The shared calendar of the Barcelona School of Economics. It carries the UPF Department of Economics and Business, CREI, the UAB economics department (UFAE, the Bellaterra series and MicroLab), IAE-CSIC, and school-wide lectures.",
+      "UB": "The activities list of the UB School of Economics: IEB, AQR-IREA, IPERG, Economic Theory, Game Theory, Economic History and the International Macro History Online Seminar, plus thesis defences.",
+      "IESE": `IESE's research seminar page, titled 'Seminars in Economics and Finance'. For ${META.academic_year} it lists ${ieseN} speaker${ieseN === 1 ? "" : "s"} and dates, without paper titles. Rooms are often still 'tbd'.`,
+      "Esade": "The events page of Esade's Group for Research in Economics and Finance (GREF). Its newest seminar is from " + (esadeSrc.extra ? longDate(esadeSrc.extra) : "last year") + ", and its organisers line still refers to 2024–25. No 2026–27 seminars are posted yet.",
+    };
+    $("sources").innerHTML = META.sources.map(s => {
+      const k = Object.keys(blurb).find(b => s.name.startsWith(b));
+      const ok = s.ok ? "" : ` <span class="tag warn">Unreachable today</span>`;
+      const staleP = s.ok ? "" : `<p style="color: var(--warn)">Today's fetch failed, so this shows the events from the last good fetch` +
+        (s.last_ok ? ` on ${esc(whenStr(new Date(s.last_ok)))}` : "") + `.</p>`;
+      return `<li><span class="src-name">${esc(s.name)}</span><span class="src-count">${s.count} events</span>${ok}
+        <p>${esc(blurb[k] || "")}</p>${staleP}<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url.replace(/^https?:\/\//, ""))}</a></li>`;
+    }).join("");
+    $("fine").textContent =
+      `The page is rebuilt every morning from the four calendars above; the last rebuild was ${whenStr(collected)}. ` +
+      `If a calendar can't be reached, its events from the last good day stay up and are marked. ` +
+      `It covers ${longDate(META.window[0])} to ${longDate(META.window[1])} and moves on to the next academic year each August. ` +
+      `"Upcoming" is worked out from today's date when you open the page. Fields are assigned from each series name, so check the series if a talk looks misfiled. ` +
+      `Internal lunch seminars and PhD sessions are hidden by default; the BSE public calendar hides them too.`;
+  }
+
+  function renderAll() { renderTiles(); renderChips(); renderList(); }
+
+  // ---- copy a week as plain text
+  function weekText(wi) {
+    const [w, days] = WEEKS[wi];
+    const lines = [`Barcelona econ seminars · week of ${dm(w)}`];
+    for (const [d, evs] of days) {
+      lines.push("", `${dow(d)} ${dm(d)}`);
+      for (const e of evs) {
+        const talk = e.talks.filter(t => t.speaker || t.title).map(t =>
+          `${t.speaker || "TBA"}${t.affil ? " (" + t.affil + ")" : ""}${t.title && !/^(tba|tbc|tbd)$/i.test(t.title) ? ", “" + t.title + "”" : ""}`).join("; ");
+        lines.push(`  ${e.all_day ? "all day" : e._time}  ${e.inst} · ${e.series}${e.canceled ? " [CANCELLED]" : ""}${talk ? " · " + talk : ""}${e.location ? " · " + e.location : ""}`);
+      }
+    }
+    return lines.join("\n");
+  }
+  let toastT;
+  function toast(msg) {
+    const t = $("toast"); t.textContent = msg; t.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 2200);
+  }
+  function fallbackCopy(btn, text) {
+    const sec = btn.closest(".week");
+    let box = sec.querySelector("textarea.copybox");
+    if (!box) { box = document.createElement("textarea"); box.className = "copybox"; box.readOnly = true; box.id = "copy-" + btn.dataset.week; sec.querySelector(".week-head").after(box); }
+    box.value = text; box.focus(); box.select();
+    toast("Text selected. Press Cmd/Ctrl+C to copy.");
+  }
+
+  // ---- events
+  document.addEventListener("click", ev => {
+    const b = ev.target.closest("button");
+    if (!b) return;
+    if (b.dataset.inst) { S.insts = toggle(S.insts, INSTS.map(i => i.key), b.dataset.inst); }
+    else if (b.dataset.field) { S.fields = toggle(S.fields, FIELDS, b.dataset.field); }
+    else if (b.dataset.kind) { S.kinds = S.kinds.includes(b.dataset.kind) ? S.kinds.filter(k => k !== b.dataset.kind) : S.kinds.concat(b.dataset.kind); if (!S.kinds.length) S.kinds = DEFAULT_KINDS.slice(); }
+    else if (b.dataset.view) { S.view = b.dataset.view; }
+    else if (b.id === "reset" || "reset" in b.dataset) { S = fresh(); $("q").value = ""; }
+    else if (b.dataset.week) {
+      const text = weekText(+b.dataset.week);
+      const n = text.split("\n").filter(l => l.startsWith("  ")).length;
+      try {
+        navigator.clipboard.writeText(text).then(() => toast(`Copied ${n} event${n === 1 ? "" : "s"}`), () => fallbackCopy(b, text));
+      } catch (_) { fallbackCopy(b, text); }
+      return;
+    } else return;
+    save(); renderAll();
+  });
+  $("internal").addEventListener("change", e => { S.internal = e.target.checked; save(); renderAll(); });
+  let qT;
+  $("q").addEventListener("input", e => { clearTimeout(qT); qT = setTimeout(() => { S.q = e.target.value.trim(); renderChips(); renderList(); }, 120); });
+
+  renderSources();
+  renderAll();
+})();
+</script>
+</body>
+</html>
