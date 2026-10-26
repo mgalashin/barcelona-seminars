@@ -1,6 +1,6 @@
 {
  "meta": {
-  "collected_at": "2026-10-25T10:57+01:00",
+  "collected_at": "2026-10-26T12:19+01:00",
   "window": [
    "2026-09-01",
    "2027-07-31"
@@ -13,7 +13,7 @@
     "url": "https://events.bse.eu/all",
     "count": 177,
     "ok": true,
-    "last_ok": "2026-10-25T10:57+01:00",
+    "last_ok": "2026-10-26T12:19+01:00",
     "error": "",
     "extra": null,
     "about": "UPF Economics and Business, CREI, UAB economics (Bellaterra series, MicroLab), IAE-CSIC and school-wide lectures."
@@ -24,7 +24,7 @@
     "url": "https://www.ub.edu/school-economics/activities/",
     "count": 41,
     "ok": true,
-    "last_ok": "2026-10-25T10:57+01:00",
+    "last_ok": "2026-10-26T12:19+01:00",
     "error": "",
     "extra": null,
     "about": "IEB, AQR-IREA, IPERG, Economic Theory, Game Theory, Economic History and the International Macro History Online Seminar, plus thesis defences."
@@ -35,7 +35,7 @@
     "url": "https://blog.iese.edu/financeseminars/seminars/",
     "count": 3,
     "ok": true,
-    "last_ok": "2026-10-25T10:57+01:00",
+    "last_ok": "2026-10-26T12:19+01:00",
     "error": "",
     "extra": "ACADEMIC YEAR 2026-2027",
     "about": "Economics and finance seminars. Speakers and dates only, no paper titles."
@@ -46,7 +46,7 @@
     "url": "https://www.esade.edu/faculty-research/en/group-research-economics-finance/events",
     "count": 0,
     "ok": true,
-    "last_ok": "2026-10-25T10:57+01:00",
+    "last_ok": "2026-10-26T12:19+01:00",
     "error": "",
     "extra": "2025-12-03",
     "about": "Seminars of Esade's Group for Research in Economics and Finance."
@@ -57,7 +57,7 @@
     "url": "https://ieb.ub.edu/en/events/",
     "count": 29,
     "ok": true,
-    "last_ok": "2026-10-25T10:57+01:00",
+    "last_ok": "2026-10-26T12:19+01:00",
     "error": "",
     "extra": null,
     "about": "The Institut d'Economia de Barcelona's work-in-progress (IWIP) seminars, workshops, colloquia and symposia."
@@ -67,12 +67,11 @@
     "name": "UAB Applied Economics seminars",
     "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
     "count": 37,
-    "ok": false,
-    "last_ok": "2026-10-23T12:16+02:00",
-    "error": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament: no year accordions found",
+    "ok": true,
+    "last_ok": "2026-10-26T12:19+01:00",
+    "error": "",
     "extra": null,
-    "about": "UAB Department of Applied Economics: departmental seminar, applied lunch seminar and job-market talks.",
-    "quiet": false
+    "about": "UAB Department of Applied Economics: departmental seminar, applied lunch seminar and job-market talks."
    },
    {
     "key": "GCAL",
@@ -80,7 +79,7 @@
     "url": "https://sites.google.com/view/ubtecoseminars/home",
     "count": 35,
     "ok": true,
-    "last_ok": "2026-10-25T10:57+01:00",
+    "last_ok": "2026-10-26T12:19+01:00",
     "error": "",
     "extra": null,
     "about": "Public calendars of the UB Economic Theory group, the UAB Department of Business and the Bellaterra Applied Working Group."
@@ -91,7 +90,7 @@
     "url": "https://crei.cat/conferences/",
     "count": 5,
     "ok": true,
-    "last_ok": "2026-10-25T10:57+01:00",
+    "last_ok": "2026-10-26T12:19+01:00",
     "error": "",
     "extra": null,
     "about": "CREI Lectures in Macroeconomics and CREI conferences."
@@ -102,7 +101,7 @@
     "url": "https://sites.google.com/view/ubmacro",
     "count": 2,
     "ok": true,
-    "last_ok": "2026-10-25T10:57+01:00",
+    "last_ok": "2026-10-26T12:19+01:00",
     "error": "",
     "extra": null,
     "about": "The annual Xavier Raurich UB Macro Workshop."
@@ -124,12 +123,11 @@
     "name": "UAB Economic History seminars",
     "url": "https://www.uab.cat/en/economics-economic-history/uhe/research/seminars",
     "count": 4,
-    "ok": false,
-    "last_ok": "2026-10-23T12:16+02:00",
-    "error": "returned 0 events (had 4)",
+    "ok": true,
+    "last_ok": "2026-10-26T12:19+01:00",
+    "error": "",
     "extra": null,
-    "about": "UAB Economic History Unit research seminars.",
-    "quiet": false
+    "about": "UAB Economic History Unit research seminars."
    },
    {
     "key": "UPF-STATS",
@@ -137,7 +135,7 @@
     "url": "https://www.upf.edu/web/statistics-group/seminars",
     "count": 9,
     "ok": true,
-    "last_ok": "2026-10-25T10:57+01:00",
+    "last_ok": "2026-10-26T12:19+01:00",
     "error": "",
     "extra": null,
     "about": "UPF Statistics, Probability and Machine Learning group seminars."
@@ -2417,7 +2415,7 @@
    "notes": [],
    "mode": "",
    "no_titles": false,
-   "url": "https://ieb.ub.edu/en/events/pepe-public-economics-and-political-economy-barcelona-workshop/",
+   "url": "https://ieb.ub.edu/?p=432571",
    "source": "IEB events",
    "id": 83
   },
@@ -3245,7 +3243,7 @@
    "notes": [],
    "mode": "",
    "no_titles": true,
-   "url": "https://ieb.ub.edu/en/events/alessandro-ciardo-universitat-de-barcelona-ieb/",
+   "url": "https://ieb.ub.edu/?p=432851",
    "source": "IEB events",
    "id": 113
   },
@@ -3702,7 +3700,7 @@
    "notes": [],
    "mode": "",
    "no_titles": true,
-   "url": "https://ieb.ub.edu/?p=431952",
+   "url": "https://ieb.ub.edu/en/events/basile-blanc-ritm-universite-paris-saclay/",
    "source": "IEB events",
    "id": 130
   },
@@ -4832,7 +4830,7 @@
    "notes": [],
    "mode": "",
    "no_titles": false,
-   "url": "https://ieb.ub.edu/?p=433503",
+   "url": "https://ieb.ub.edu/en/events/jornada-de-presentacion-ieb-report-2-2026-mas-alla-de-las-protestas-el-impacto-real-del-turismo-en-las-ciudades/",
    "source": "IEB events",
    "id": 169
   },
