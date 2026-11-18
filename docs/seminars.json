@@ -1,6 +1,6 @@
 {
  "meta": {
-  "collected_at": "2026-11-17T15:44+01:00",
+  "collected_at": "2026-11-18T15:22+01:00",
   "window": [
    "2026-09-01",
    "2027-07-31"
@@ -13,7 +13,7 @@
     "url": "https://events.bse.eu/all",
     "count": 206,
     "ok": true,
-    "last_ok": "2026-11-17T15:44+01:00",
+    "last_ok": "2026-11-18T15:22+01:00",
     "error": "",
     "extra": null,
     "about": "UPF Economics and Business, CREI, UAB economics (Bellaterra series, MicroLab), IAE-CSIC and school-wide lectures."
@@ -36,7 +36,7 @@
     "url": "https://blog.iese.edu/financeseminars/seminars/",
     "count": 3,
     "ok": true,
-    "last_ok": "2026-11-17T15:44+01:00",
+    "last_ok": "2026-11-18T15:22+01:00",
     "error": "",
     "extra": "ACADEMIC YEAR 2026-2027",
     "about": "Economics and finance seminars. Speakers and dates only, no paper titles."
@@ -47,7 +47,7 @@
     "url": "https://www.esade.edu/faculty-research/en/group-research-economics-finance/events",
     "count": 0,
     "ok": true,
-    "last_ok": "2026-11-17T15:44+01:00",
+    "last_ok": "2026-11-18T15:22+01:00",
     "error": "",
     "extra": "2025-12-03",
     "about": "Seminars of Esade's Group for Research in Economics and Finance."
@@ -56,9 +56,9 @@
     "key": "IEB",
     "name": "IEB events",
     "url": "https://ieb.ub.edu/en/events/",
-    "count": 35,
+    "count": 34,
     "ok": true,
-    "last_ok": "2026-11-17T15:44+01:00",
+    "last_ok": "2026-11-18T15:22+01:00",
     "error": "",
     "extra": null,
     "about": "The Institut d'Economia de Barcelona's work-in-progress (IWIP) seminars, workshops, colloquia and symposia."
@@ -69,7 +69,7 @@
     "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
     "count": 37,
     "ok": true,
-    "last_ok": "2026-11-17T15:44+01:00",
+    "last_ok": "2026-11-18T15:22+01:00",
     "error": "",
     "extra": null,
     "about": "UAB Department of Applied Economics: departmental seminar, applied lunch seminar and job-market talks."
@@ -80,7 +80,7 @@
     "url": "https://sites.google.com/view/ubtecoseminars/home",
     "count": 36,
     "ok": true,
-    "last_ok": "2026-11-17T15:44+01:00",
+    "last_ok": "2026-11-18T15:22+01:00",
     "error": "",
     "extra": null,
     "about": "Public calendars of the UB Economic Theory group, the UAB Department of Business and the Bellaterra Applied Working Group."
@@ -91,7 +91,7 @@
     "url": "https://crei.cat/conferences/",
     "count": 5,
     "ok": true,
-    "last_ok": "2026-11-17T15:44+01:00",
+    "last_ok": "2026-11-18T15:22+01:00",
     "error": "",
     "extra": null,
     "about": "CREI Lectures in Macroeconomics and CREI conferences."
@@ -102,7 +102,7 @@
     "url": "https://sites.google.com/view/ubmacro",
     "count": 2,
     "ok": true,
-    "last_ok": "2026-11-17T15:44+01:00",
+    "last_ok": "2026-11-18T15:22+01:00",
     "error": "",
     "extra": null,
     "about": "The annual Xavier Raurich UB Macro Workshop."
@@ -125,7 +125,7 @@
     "url": "https://www.uab.cat/en/economics-economic-history/uhe/research/seminars",
     "count": 4,
     "ok": true,
-    "last_ok": "2026-11-17T15:44+01:00",
+    "last_ok": "2026-11-18T15:22+01:00",
     "error": "",
     "extra": null,
     "about": "UAB Economic History Unit research seminars."
@@ -136,7 +136,7 @@
     "url": "https://www.upf.edu/web/statistics-group/seminars",
     "count": 9,
     "ok": true,
-    "last_ok": "2026-11-17T15:44+01:00",
+    "last_ok": "2026-11-18T15:22+01:00",
     "error": "",
     "extra": null,
     "about": "UPF Statistics, Probability and Machine Learning group seminars."
@@ -6283,14 +6283,14 @@
     {
      "speaker": "Miguel Espinosa",
      "affil": "Bocconi",
-     "title": "TBA",
+     "title": "Managerial Allocation Skill and the Value of Digital Monitoring",
      "note": ""
     }
    ],
-   "location": "24.019 (Mercè Rodoreda Building)",
+   "location": "24.023 (Mercè Rodoreda building)",
    "notes": [],
    "mode": "",
-   "url": "https://events.bse.eu/event/15739-upf-management-seminar",
+   "url": "https://events.bse.eu/event/15908-upf-management-seminar",
    "source": "BSE events calendar",
    "id": 223,
    "campus": "Ciutadella campus"
@@ -7228,8 +7228,8 @@
     {
      "speaker": "Chenzi Xu",
      "affil": "UC, Berkeley",
-     "title": "TBC",
-     "note": ""
+     "title": "The Very Long-Run Costs of Financial Crises",
+     "note": "(with K. Müller and M. Lehbib)"
     }
    ],
    "location": "",
