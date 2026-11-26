@@ -1,6 +1,6 @@
 {
  "meta": {
-  "collected_at": "2026-11-25T16:52+01:00",
+  "collected_at": "2026-11-26T16:31+01:00",
   "window": [
    "2026-09-01",
    "2027-07-31"
@@ -11,9 +11,9 @@
     "key": "BSE",
     "name": "BSE events calendar",
     "url": "https://events.bse.eu/all",
-    "count": 207,
+    "count": 208,
     "ok": true,
-    "last_ok": "2026-11-25T16:52+01:00",
+    "last_ok": "2026-11-26T16:31+01:00",
     "error": "",
     "extra": null,
     "about": "UPF Economics and Business, CREI, UAB economics (Bellaterra series, MicroLab), IAE-CSIC and school-wide lectures."
@@ -36,7 +36,7 @@
     "url": "https://blog.iese.edu/financeseminars/seminars/",
     "count": 3,
     "ok": true,
-    "last_ok": "2026-11-25T16:52+01:00",
+    "last_ok": "2026-11-26T16:31+01:00",
     "error": "",
     "extra": "ACADEMIC YEAR 2026-2027",
     "about": "Economics and finance seminars. Speakers and dates only, no paper titles."
@@ -47,7 +47,7 @@
     "url": "https://www.esade.edu/faculty-research/en/group-research-economics-finance/events",
     "count": 0,
     "ok": true,
-    "last_ok": "2026-11-25T16:52+01:00",
+    "last_ok": "2026-11-26T16:31+01:00",
     "error": "",
     "extra": "2025-12-03",
     "about": "Seminars of Esade's Group for Research in Economics and Finance."
@@ -58,7 +58,7 @@
     "url": "https://ieb.ub.edu/en/events/",
     "count": 34,
     "ok": true,
-    "last_ok": "2026-11-25T16:52+01:00",
+    "last_ok": "2026-11-26T16:31+01:00",
     "error": "",
     "extra": null,
     "about": "The Institut d'Economia de Barcelona's work-in-progress (IWIP) seminars, workshops, colloquia and symposia."
@@ -69,7 +69,7 @@
     "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
     "count": 37,
     "ok": true,
-    "last_ok": "2026-11-25T16:52+01:00",
+    "last_ok": "2026-11-26T16:31+01:00",
     "error": "",
     "extra": null,
     "about": "UAB Department of Applied Economics: departmental seminar, applied lunch seminar and job-market talks."
@@ -80,7 +80,7 @@
     "url": "https://sites.google.com/view/ubtecoseminars/home",
     "count": 39,
     "ok": true,
-    "last_ok": "2026-11-25T16:52+01:00",
+    "last_ok": "2026-11-26T16:31+01:00",
     "error": "",
     "extra": null,
     "about": "Public calendars of the UB Economic Theory group, the UAB Department of Business and the Bellaterra Applied Working Group."
@@ -91,7 +91,7 @@
     "url": "https://crei.cat/conferences/",
     "count": 5,
     "ok": true,
-    "last_ok": "2026-11-25T16:52+01:00",
+    "last_ok": "2026-11-26T16:31+01:00",
     "error": "",
     "extra": null,
     "about": "CREI Lectures in Macroeconomics and CREI conferences."
@@ -102,7 +102,7 @@
     "url": "https://sites.google.com/view/ubmacro",
     "count": 2,
     "ok": true,
-    "last_ok": "2026-11-25T16:52+01:00",
+    "last_ok": "2026-11-26T16:31+01:00",
     "error": "",
     "extra": null,
     "about": "The annual Xavier Raurich UB Macro Workshop."
@@ -125,7 +125,7 @@
     "url": "https://www.uab.cat/en/economics-economic-history/uhe/research/seminars",
     "count": 4,
     "ok": true,
-    "last_ok": "2026-11-25T16:52+01:00",
+    "last_ok": "2026-11-26T16:31+01:00",
     "error": "",
     "extra": null,
     "about": "UAB Economic History Unit research seminars."
@@ -136,7 +136,7 @@
     "url": "https://www.upf.edu/web/statistics-group/seminars",
     "count": 9,
     "ok": true,
-    "last_ok": "2026-11-25T16:52+01:00",
+    "last_ok": "2026-11-26T16:31+01:00",
     "error": "",
     "extra": null,
     "about": "UPF Statistics, Probability and Machine Learning group seminars."
@@ -7032,6 +7032,33 @@
   {
    "inst": "UAB",
    "host": "UAB Department of Economics",
+   "series": "Bellaterra Applied Working Group",
+   "kind": "workshop",
+   "field": "Applied & policy",
+   "internal": false,
+   "canceled": false,
+   "start": "2026-12-09T14:20:00+01:00",
+   "end": null,
+   "all_day": false,
+   "talks": [
+    {
+     "speaker": "Renato Vassallo",
+     "affil": "Internal",
+     "title": "Peace Agreements and the Dynamics of Conflict Violence.",
+     "note": ""
+    }
+   ],
+   "location": "UAB Room Seminari 1b",
+   "notes": [],
+   "mode": "",
+   "url": "https://events.bse.eu/event/15913-bellaterra-applied-working-group",
+   "source": "BSE events calendar",
+   "id": 250,
+   "campus": "Bellaterra campus"
+  },
+  {
+   "inst": "UAB",
+   "host": "UAB Department of Economics",
    "series": "Bellaterra Macro Club",
    "kind": "seminar",
    "field": "Macro & international",
@@ -7053,7 +7080,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15895-bellaterra-macro-club",
    "source": "BSE events calendar",
-   "id": 250,
+   "id": 251,
    "campus": "Bellaterra campus"
   },
   {
@@ -7082,7 +7109,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 251
+   "id": 252
   },
   {
    "inst": "UPF",
@@ -7111,7 +7138,7 @@
    "mode": "",
    "url": "https://www.upf.edu/web/statistics-group/seminars/-/asset_publisher/MxSNARnfQdA2/content/10-dec-christophe-giraud-paris-saclay-university-tba/maximized",
    "source": "UPF Statistics seminars",
-   "id": 252
+   "id": 253
   },
   {
    "inst": "UAB",
@@ -7137,7 +7164,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15750-bellaterra-microeconomics-seminar",
    "source": "BSE events calendar",
-   "id": 253,
+   "id": 254,
    "campus": "Bellaterra campus"
   },
   {
@@ -7159,7 +7186,7 @@
    "no_titles": false,
    "url": "https://ieb.ub.edu/en/events/presentacion-del-iii-anuario-de-hacienda-local/",
    "source": "IEB events",
-   "id": 254
+   "id": 255
   },
   {
    "inst": "UPF",
@@ -7194,7 +7221,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/international-lunch/",
    "source": "BSE events calendar",
-   "id": 255,
+   "id": 256,
    "campus": "Ciutadella campus"
   },
   {
@@ -7223,7 +7250,7 @@
    "no_titles": true,
    "url": "https://ieb.ub.edu/?p=433692",
    "source": "IEB events",
-   "id": 256
+   "id": 257
   },
   {
    "inst": "UPF",
@@ -7245,7 +7272,7 @@
    "field": "Applied & policy",
    "start": "2026-12-14",
    "url": "https://crei.cat/activities/junior-spatial-economics-conference-2026/",
-   "id": 257
+   "id": 258
   },
   {
    "inst": "UPF",
@@ -7271,7 +7298,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 258,
+   "id": 259,
    "campus": "Ciutadella campus"
   },
   {
@@ -7294,7 +7321,7 @@
    "field": "Applied & policy",
    "start": "2026-12-15",
    "url": "https://crei.cat/activities/junior-spatial-economics-conference-2026/",
-   "id": 259
+   "id": 260
   },
   {
    "url": "https://sites.google.com/view/ubtecoseminars/thursday-seminars",
@@ -7322,7 +7349,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 260
+   "id": 261
   },
   {
    "inst": "UAB",
@@ -7349,7 +7376,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/appliedlunchca",
    "source": "UAB Applied Economics seminars",
-   "id": 261
+   "id": 262
   },
   {
    "inst": "UPF",
@@ -7375,7 +7402,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15822-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 262,
+   "id": 263,
    "campus": "Ciutadella campus"
   },
   {
@@ -7402,7 +7429,7 @@
    "mode": "In Person",
    "url": "https://www.ub.edu/school-economics/activity/where-it-all-begins-eurodollars-and-international-monetary-policy-transmission-under-bretton-woods/",
    "source": "UB School of Economics activities",
-   "id": 263,
+   "id": 264,
    "campus": "Diagonal campus"
   },
   {
@@ -7431,7 +7458,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 264
+   "id": 265
   },
   {
    "inst": "UPF",
@@ -7457,7 +7484,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15823-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 265,
+   "id": 266,
    "campus": "Ciutadella campus"
   },
   {
@@ -7484,7 +7511,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15824-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 266,
+   "id": 267,
    "campus": "Ciutadella campus"
   },
   {
@@ -7506,7 +7533,7 @@
    "no_titles": false,
    "url": "https://ieb.ub.edu/?p=433610",
    "source": "IEB events",
-   "id": 267
+   "id": 268
   },
   {
    "inst": "UB",
@@ -7532,7 +7559,7 @@
    "mode": "In Person",
    "url": "https://www.ub.edu/school-economics/activity/workshop-on-consumption-amenities-and-retail-in-cities/",
    "source": "UB School of Economics activities",
-   "id": 268,
+   "id": 269,
    "campus": "Diagonal campus"
   },
   {
@@ -7559,7 +7586,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15825-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 269,
+   "id": 270,
    "campus": "Ciutadella campus"
   },
   {
@@ -7581,7 +7608,7 @@
    "no_titles": false,
    "url": "https://ieb.ub.edu/?p=431717",
    "source": "IEB events",
-   "id": 270
+   "id": 271
   },
   {
    "inst": "UB",
@@ -7602,7 +7629,7 @@
    "no_titles": false,
    "url": "https://ieb.ub.edu/?p=431478",
    "source": "IEB events",
-   "id": 271
+   "id": 272
   },
   {
    "inst": "UAB",
@@ -7629,7 +7656,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/appliedlunchca",
    "source": "UAB Applied Economics seminars",
-   "id": 272
+   "id": 273
   },
   {
    "inst": "UPF",
@@ -7655,7 +7682,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15826-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 273,
+   "id": 274,
    "campus": "Ciutadella campus"
   },
   {
@@ -7685,7 +7712,7 @@
    "mode": "",
    "url": "https://www.upf.edu/web/statistics-group/seminars/-/asset_publisher/MxSNARnfQdA2/content/4-feb-gherardo-varando-universitat-de-valencia-tba/maximized",
    "source": "UPF Statistics seminars",
-   "id": 274
+   "id": 275
   },
   {
    "inst": "UAB",
@@ -7712,7 +7739,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 275
+   "id": 276
   },
   {
    "inst": "UPF",
@@ -7738,7 +7765,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 276,
+   "id": 277,
    "campus": "Ciutadella campus"
   },
   {
@@ -7766,7 +7793,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/appliedlunchca",
    "source": "UAB Applied Economics seminars",
-   "id": 277
+   "id": 278
   },
   {
    "inst": "UPF",
@@ -7792,7 +7819,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15827-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 278,
+   "id": 279,
    "campus": "Ciutadella campus"
   },
   {
@@ -7820,7 +7847,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 279
+   "id": 280
   },
   {
    "url": "https://sites.google.com/view/ubtecoseminars/home",
@@ -7848,7 +7875,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 280
+   "id": 281
   },
   {
    "inst": "UAB",
@@ -7875,7 +7902,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/appliedlunchca",
    "source": "UAB Applied Economics seminars",
-   "id": 281
+   "id": 282
   },
   {
    "inst": "UPF",
@@ -7901,7 +7928,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15828-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 282,
+   "id": 283,
    "campus": "Ciutadella campus"
   },
   {
@@ -7929,7 +7956,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 283
+   "id": 284
   },
   {
    "inst": "UPF",
@@ -7955,7 +7982,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 284,
+   "id": 285,
    "campus": "Ciutadella campus"
   },
   {
@@ -7982,7 +8009,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15650-bellaterra-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 285,
+   "id": 286,
    "campus": "Bellaterra campus"
   },
   {
@@ -8009,7 +8036,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15794-upf-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 286,
+   "id": 287,
    "campus": "Ciutadella campus"
   },
   {
@@ -8036,7 +8063,7 @@
    "mode": "",
    "url": "https://blog.iese.edu/financeseminars/seminars/",
    "source": "IESE Research Seminars",
-   "id": 287,
+   "id": 288,
    "campus": "Pedralbes campus"
   },
   {
@@ -8064,7 +8091,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 288
+   "id": 289
   },
   {
    "inst": "UAB",
@@ -8090,7 +8117,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15900-bellaterra-applied-working-group",
    "source": "BSE events calendar",
-   "id": 289,
+   "id": 290,
    "campus": "Bellaterra campus"
   },
   {
@@ -8117,7 +8144,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 290,
+   "id": 291,
    "campus": "Ciutadella campus"
   },
   {
@@ -8144,7 +8171,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15653-bellaterra-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 291,
+   "id": 292,
    "campus": "Bellaterra campus"
   },
   {
@@ -8171,7 +8198,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15795-upf-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 292,
+   "id": 293,
    "campus": "Ciutadella campus"
   },
   {
@@ -8199,7 +8226,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/appliedlunchca",
    "source": "UAB Applied Economics seminars",
-   "id": 293
+   "id": 294
   },
   {
    "inst": "UAB",
@@ -8225,7 +8252,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15806-microlab-duarte-goncalves",
    "source": "BSE events calendar",
-   "id": 294,
+   "id": 295,
    "campus": "Bellaterra campus"
   },
   {
@@ -8253,7 +8280,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 295
+   "id": 296
   },
   {
    "inst": "UPF",
@@ -8279,7 +8306,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 296,
+   "id": 297,
    "campus": "Ciutadella campus"
   },
   {
@@ -8308,7 +8335,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 297
+   "id": 298
   },
   {
    "inst": "UPF",
@@ -8334,7 +8361,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15736-upf-finance-seminar",
    "source": "BSE events calendar",
-   "id": 298,
+   "id": 299,
    "campus": "Ciutadella campus"
   },
   {
@@ -8361,7 +8388,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15796-upf-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 299,
+   "id": 300,
    "campus": "Ciutadella campus"
   },
   {
@@ -8391,7 +8418,7 @@
    "mode": "",
    "url": "https://www.upf.edu/web/statistics-group/seminars",
    "source": "UPF Statistics seminars",
-   "id": 300
+   "id": 301
   },
   {
    "inst": "UAB",
@@ -8417,7 +8444,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15761-microlab-ata-atay",
    "source": "BSE events calendar",
-   "id": 301,
+   "id": 302,
    "campus": "Bellaterra campus"
   },
   {
@@ -8445,7 +8472,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 302
+   "id": 303
   },
   {
    "inst": "BSE",
@@ -8467,7 +8494,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15854-bellaterra-growth-workshop",
    "source": "BSE events calendar",
-   "id": 303,
+   "id": 304,
    "campus": ""
   },
   {
@@ -8494,7 +8521,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15899-bellaterra-applied-working-group",
    "source": "BSE events calendar",
-   "id": 304,
+   "id": 305,
    "campus": "Bellaterra campus"
   },
   {
@@ -8521,7 +8548,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15865-energy-economics-workshop",
    "source": "BSE events calendar",
-   "id": 305,
+   "id": 306,
    "campus": ""
   },
   {
@@ -8548,7 +8575,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15654-bellaterra-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 306,
+   "id": 307,
    "campus": "Bellaterra campus"
   },
   {
@@ -8575,7 +8602,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15865-energy-economics-workshop",
    "source": "BSE events calendar",
-   "id": 307,
+   "id": 308,
    "campus": ""
   },
   {
@@ -8604,7 +8631,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 308
+   "id": 309
   },
   {
    "inst": "UPF",
@@ -8633,7 +8660,7 @@
    "mode": "",
    "url": "https://www.upf.edu/web/statistics-group/seminars",
    "source": "UPF Statistics seminars",
-   "id": 309
+   "id": 310
   },
   {
    "inst": "UPF",
@@ -8659,7 +8686,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15829-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 310,
+   "id": 311,
    "campus": "Ciutadella campus"
   },
   {
@@ -8686,7 +8713,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15830-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 311,
+   "id": 312,
    "campus": "Ciutadella campus"
   },
   {
@@ -8713,7 +8740,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15901-bellaterra-applied-working-group",
    "source": "BSE events calendar",
-   "id": 312,
+   "id": 313,
    "campus": "Bellaterra campus"
   },
   {
@@ -8740,7 +8767,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 313,
+   "id": 314,
    "campus": "Ciutadella campus"
   },
   {
@@ -8767,7 +8794,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15656-bellaterra-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 314,
+   "id": 315,
    "campus": "Bellaterra campus"
   },
   {
@@ -8796,7 +8823,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 315
+   "id": 316
   },
   {
    "inst": "UPF",
@@ -8824,7 +8851,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15850-upf-finance-seminar",
    "source": "BSE events calendar",
-   "id": 316,
+   "id": 317,
    "campus": "Ciutadella campus"
   },
   {
@@ -8851,7 +8878,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15797-upf-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 317,
+   "id": 318,
    "campus": "Ciutadella campus"
   },
   {
@@ -8879,7 +8906,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/appliedlunchca",
    "source": "UAB Applied Economics seminars",
-   "id": 318
+   "id": 319
   },
   {
    "inst": "UPF",
@@ -8905,7 +8932,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15831-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 319,
+   "id": 320,
    "campus": "Ciutadella campus"
   },
   {
@@ -8927,7 +8954,7 @@
    "no_titles": false,
    "url": "https://ieb.ub.edu/?p=433727",
    "source": "IEB events",
-   "id": 320
+   "id": 321
   },
   {
    "inst": "UB",
@@ -8953,7 +8980,7 @@
    "mode": "In Person",
    "url": "https://www.ub.edu/school-economics/activity/workshop-on-family-policies-and-gender-equality/",
    "source": "UB School of Economics activities",
-   "id": 321,
+   "id": 322,
    "campus": "Diagonal campus"
   },
   {
@@ -8981,7 +9008,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 322
+   "id": 323
   },
   {
    "url": "https://uabufae.eu/seminars/applied-seminars",
@@ -9009,7 +9036,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 323
+   "id": 324
   },
   {
    "inst": "UPF",
@@ -9035,7 +9062,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 324,
+   "id": 325,
    "campus": "Ciutadella campus"
   },
   {
@@ -9064,7 +9091,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 325
+   "id": 326
   },
   {
    "inst": "UPF",
@@ -9090,7 +9117,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15752-upf-finance-seminar",
    "source": "BSE events calendar",
-   "id": 326,
+   "id": 327,
    "campus": "Ciutadella campus"
   },
   {
@@ -9117,7 +9144,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15798-upf-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 327,
+   "id": 328,
    "campus": "Ciutadella campus"
   },
   {
@@ -9144,7 +9171,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15832-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 328,
+   "id": 329,
    "campus": "Ciutadella campus"
   },
   {
@@ -9172,7 +9199,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 329
+   "id": 330
   },
   {
    "inst": "UPF",
@@ -9198,7 +9225,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 330,
+   "id": 331,
    "campus": "Ciutadella campus"
   },
   {
@@ -9225,7 +9252,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15657-bellaterra-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 331,
+   "id": 332,
    "campus": "Bellaterra campus"
   },
   {
@@ -9254,7 +9281,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 332
+   "id": 333
   },
   {
    "inst": "UPF",
@@ -9280,7 +9307,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15801-upf-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 333,
+   "id": 334,
    "campus": "Ciutadella campus"
   },
   {
@@ -9308,7 +9335,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/appliedlunchca",
    "source": "UAB Applied Economics seminars",
-   "id": 334
+   "id": 335
   },
   {
    "inst": "UPF",
@@ -9334,7 +9361,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15833-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 335,
+   "id": 336,
    "campus": "Ciutadella campus"
   },
   {
@@ -9362,7 +9389,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 336
+   "id": 337
   },
   {
    "inst": "UPF",
@@ -9388,7 +9415,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 337,
+   "id": 338,
    "campus": "Ciutadella campus"
   },
   {
@@ -9415,7 +9442,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15655-bellaterra-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 338,
+   "id": 339,
    "campus": "Bellaterra campus"
   },
   {
@@ -9444,7 +9471,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 339
+   "id": 340
   },
   {
    "inst": "UPF",
@@ -9470,7 +9497,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15753-upf-finance-seminar",
    "source": "BSE events calendar",
-   "id": 340,
+   "id": 341,
    "campus": "Ciutadella campus"
   },
   {
@@ -9497,7 +9524,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15802-upf-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 341,
+   "id": 342,
    "campus": "Ciutadella campus"
   },
   {
@@ -9524,7 +9551,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15834-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 342,
+   "id": 343,
    "campus": "Ciutadella campus"
   },
   {
@@ -9553,7 +9580,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15866-51st-bse-lecture",
    "source": "BSE events calendar",
-   "id": 343,
+   "id": 344,
    "campus": ""
   },
   {
@@ -9581,7 +9608,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 344
+   "id": 345
   },
   {
    "url": "https://uabufae.eu/seminars/applied-seminars",
@@ -9604,7 +9631,7 @@
    ],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 345
+   "id": 346
   },
   {
    "inst": "UPF",
@@ -9630,7 +9657,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 346,
+   "id": 347,
    "campus": "Ciutadella campus"
   },
   {
@@ -9659,7 +9686,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 347
+   "id": 348
   },
   {
    "inst": "UPF",
@@ -9685,7 +9712,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15803-upf-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 348,
+   "id": 349,
    "campus": "Ciutadella campus"
   },
   {
@@ -9713,7 +9740,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/appliedlunchca",
    "source": "UAB Applied Economics seminars",
-   "id": 349
+   "id": 350
   },
   {
    "inst": "UPF",
@@ -9739,7 +9766,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15835-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 350,
+   "id": 351,
    "campus": "Ciutadella campus"
   },
   {
@@ -9768,7 +9795,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15851-upf-finance-seminar",
    "source": "BSE events calendar",
-   "id": 351,
+   "id": 352,
    "campus": "Ciutadella campus"
   },
   {
@@ -9796,7 +9823,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 352
+   "id": 353
   },
   {
    "inst": "UPF",
@@ -9822,7 +9849,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 353,
+   "id": 354,
    "campus": "Ciutadella campus"
   },
   {
@@ -9849,7 +9876,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15658-bellaterra-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 354,
+   "id": 355,
    "campus": "Bellaterra campus"
   },
   {
@@ -9876,7 +9903,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15754-upf-finance-seminar",
    "source": "BSE events calendar",
-   "id": 355,
+   "id": 356,
    "campus": "Ciutadella campus"
   },
   {
@@ -9903,7 +9930,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15836-upf-internal-applied-lunch-seminar",
    "source": "BSE events calendar",
-   "id": 356,
+   "id": 357,
    "campus": "Ciutadella campus"
   },
   {
@@ -9931,7 +9958,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 357
+   "id": 358
   },
   {
    "url": "https://sites.google.com/view/ubtecoseminars/home",
@@ -9959,7 +9986,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 358
+   "id": 359
   },
   {
    "inst": "UPF",
@@ -9985,7 +10012,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15755-upf-finance-seminar",
    "source": "BSE events calendar",
-   "id": 359,
+   "id": 360,
    "campus": "Ciutadella campus"
   },
   {
@@ -10012,7 +10039,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15804-upf-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 360,
+   "id": 361,
    "campus": "Ciutadella campus"
   },
   {
@@ -10040,7 +10067,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/appliedlunchca",
    "source": "UAB Applied Economics seminars",
-   "id": 361
+   "id": 362
   },
   {
    "inst": "UAB",
@@ -10067,7 +10094,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/seminarisdepartament",
    "source": "UAB Applied Economics seminars",
-   "id": 362
+   "id": 363
   },
   {
    "inst": "UPF",
@@ -10093,7 +10120,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 363,
+   "id": 364,
    "campus": "Ciutadella campus"
   },
   {
@@ -10122,7 +10149,7 @@
    "notes": [],
    "mode": "",
    "source": "Google Calendar feeds",
-   "id": 364
+   "id": 365
   },
   {
    "inst": "UPF",
@@ -10148,7 +10175,7 @@
    "mode": "",
    "url": "https://events.bse.eu/event/15805-upf-applied-economics-seminar",
    "source": "BSE events calendar",
-   "id": 365,
+   "id": 366,
    "campus": "Ciutadella campus"
   },
   {
@@ -10175,7 +10202,7 @@
    "mode": "",
    "url": "https://crei.cat/seminars/crei-upf-seminar/",
    "source": "BSE events calendar",
-   "id": 366,
+   "id": 367,
    "campus": "Ciutadella campus"
   },
   {
@@ -10202,7 +10229,7 @@
    "mode": "",
    "url": "https://blog.iese.edu/financeseminars/seminars/",
    "source": "IESE Research Seminars",
-   "id": 367,
+   "id": 368,
    "campus": "Pedralbes campus"
   },
   {
@@ -10230,7 +10257,7 @@
    "mode": "",
    "url": "https://www.uab.cat/ca/economia-aplicada/appliedlunchca",
    "source": "UAB Applied Economics seminars",
-   "id": 368
+   "id": 369
   }
  ]
 }
